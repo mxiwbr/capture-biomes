@@ -1,4 +1,4 @@
-﻿package io.github.mxiwbr.capturebioms;
+package io.github.mxiwbr.capturebioms;
 
 import lombok.Getter;
 import org.bukkit.Material;
@@ -39,7 +39,7 @@ public class Config {
 
             this.intervalTicks = config.getInt("item-check.interval-ticks");
 
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
 
             CaptureBioms.LOGGER.warning("Failed to load config.yml, using default config.");
 

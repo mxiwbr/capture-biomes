@@ -17,11 +17,12 @@ public final class CaptureBioms extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        // creates a default config.yml if there is none
-        saveDefaultConfig();
-        CONFIG = new Config();
         // Global plugin instance object
         INSTANCE = this;
+        // creates a default config.yml if there is none
+        saveDefaultConfig();
+        // Creates a config object to get config values
+        CONFIG = new Config();
         // Set logger object to log from other classes
         LOGGER = getLogger();
         LOGGER.info("Enabled!");
