@@ -1,8 +1,11 @@
 package io.github.mxiwbr.capturebioms;
 
+import io.github.mxiwbr.capturebioms.utils.BiomeUtils;
 import io.github.mxiwbr.capturebioms.utils.ItemFactory;
 import io.github.mxiwbr.capturebioms.utils.ItemUtils;
+import io.github.mxiwbr.capturebioms.utils.ParticleUtils;
 import org.bukkit.*;
+import org.bukkit.block.Beacon;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
@@ -15,7 +18,7 @@ public class BeaconRitual {
      * @param item the item which is dropped on the beacon (xp bottles)
      * @param requiredBottleAmount the amount of required bottles for the ritual
      */
-    public static void startBeaconRitual(Location location, Item item, int requiredBottleAmount, int beaconTier) {
+    public static void startBeaconRitual(Location location, Item item, int requiredBottleAmount, Beacon beacon, int beaconTier) {
 
         // the world in which the ritual takes place
         // not supported: nether, end, custom
@@ -92,6 +95,7 @@ public class BeaconRitual {
         // beacon tier 2 -> 2x
         // ...
         potion.setAmount(beaconTier);
+        ParticleUtils.spawnParticleSpiral(beacon.getLocation(), BiomeUtils.getBiomeColor(biome.getKey().getKey()));
         // drop potion on location and play sound
         world.dropItemNaturally(location, potion);
         world.playSound(location, Sound.ENTITY_ITEM_PICKUP, 1, 1);

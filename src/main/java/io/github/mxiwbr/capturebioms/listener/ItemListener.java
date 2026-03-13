@@ -59,7 +59,7 @@ public class ItemListener implements Listener {
             // Cancel if there are not enough xp-bottles
             if (itemAmount < requiredBottleAmount) { return; }
 
-            BeaconRitual.startBeaconRitual(location, item, requiredBottleAmount, tier);
+            BeaconRitual.startBeaconRitual(location, item, requiredBottleAmount, beacon, tier);
 
         });
     }
