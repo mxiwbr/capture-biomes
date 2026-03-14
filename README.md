@@ -58,6 +58,7 @@ beacon:
     tier-3: 48
     tier-4: 64
   biome-potions-size:                 # Effect range of the Biome Potion when used (squared → 4 = 4x4 blocks)
+                                      # Have to be whole and even numbers
                                       # See https://github.com/mxiwbr/capture-biomes/blob/main/README.md to understand how the size works
     tier-1: 4
     tier-2: 8
@@ -69,12 +70,13 @@ beacon:
 
 # --- Biome Potions ---
 potion-cooldown:                      # cooldown of the biome potions
+                                      # this affects all potions created after changing this value - old items will still have the same cooldown settings!
                                       # recommended to leave enabled to prevent players from crashing / lagging the server by throwing too many potions at once
 
   enabled: true                       # default: true
                                       # boolean (true / false)
 
-  length: 30                          # default: 30
+  length: 15                          # default: 15
                                       # full seconds
                                       # only relevant if enabled is true
 
