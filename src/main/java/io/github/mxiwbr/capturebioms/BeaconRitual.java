@@ -49,7 +49,7 @@ public class BeaconRitual {
         ItemUtils.removeItemsFromStack(item, requiredBottleAmount);
 
         // create potion from ItemFactory
-        ItemStack potion = ItemFactory.createBiomePotion(biome);
+        ItemStack potion = ItemFactory.createBiomePotion(biome, beaconTier);
         if (potion == null) {
 
             CaptureBioms.LOGGER.warning("Creation of biome bottle at " + location.toString() + " failed: the biome is either not supported or could not be found. " +
@@ -57,8 +57,8 @@ public class BeaconRitual {
             return;
         }
 
-        // set the amount of biome potions to get
-        potion.setAmount(CaptureBioms.CONFIG.getBiomePotionCount()[beaconTier - 1]);
+        // get the amount of potions set in the config (default 1)
+        potion.setAmount(CaptureBioms.CONFIG.getBiomePotionsAmount());
         ParticleUtils.spawnParticleSpiral(beacon.getLocation(), BiomeUtils.getBiomeColor(biome.getKey().getKey()));
         // drop potion on location and play sound
         world.dropItemNaturally(location, potion);

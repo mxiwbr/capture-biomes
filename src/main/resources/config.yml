@@ -2,18 +2,20 @@
 
 # --- Beacon ritual items ---
 beacon:
-  required-xp-bottles:                # XP bottles required for every beacon level
+  required-xp-bottles:                # XP bottles required for every beacon level (cannot be more than 64)
     tier-1: 16
     tier-2: 32
     tier-3: 48
     tier-4: 64
-  biome-bottles-per-tier:             # Biome Potions you'll get per beacon level
-    tier-1: 1
-    tier-2: 2
-    tier-3: 3
-    tier-4: 4
+  biome-potions-size:                 # Effect range of the Biome Potion when used (squared → 4 = 4x4 blocks)
+                                      # See https://github.com/mxiwbr/capture-biomes/blob/main/README.md to understand how the size works
+    tier-1: 4
+    tier-2: 8
+    tier-3: 16
+    tier-4: 32
   trigger_item: EXPERIENCE_BOTTLE     # The item that must be thrown on the beacon to trigger the biome capture
                                       # See https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html for the item names
+  biome-potions-amount: 1             #  default: 1 | amount of Biome Potions to get each time
 
 # --- Biome Potions ---
 potion-cooldown:                      # cooldown of the biome potions

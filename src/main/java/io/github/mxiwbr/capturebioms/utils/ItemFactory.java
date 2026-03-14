@@ -6,7 +6,6 @@ import io.papermc.paper.datacomponent.item.TooltipDisplay;
 import io.papermc.paper.datacomponent.item.UseCooldown;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.event.DataComponentValue;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -14,28 +13,21 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Biome;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.apache.commons.text.WordUtils;
-import org.bukkit.inventory.meta.components.UseCooldownComponent;
 import org.bukkit.persistence.PersistentDataType;
-import org.checkerframework.checker.signedness.qual.UnknownSignedness;
-import org.jetbrains.annotations.NotNull;
-import org.jspecify.annotations.Nullable;
-
-import javax.inject.Named;
 import java.util.List;
-import java.util.Map;
 
 public class ItemFactory {
 
     /**
      * Creates a biom potion
      * @param biome the biome (as Biome object) for which the potion should be created
+     * @param tier the tier (size set in config) of the potion
      * @return ItemStack of the created potion
      */
-    public static ItemStack createBiomePotion(Biome biome) {
+    public static ItemStack createBiomePotion(Biome biome, int tier) {
 
         // Create potion ItemStack as lingering potion
         ItemStack potion = new ItemStack(Material.LINGERING_POTION);
@@ -50,6 +42,14 @@ public class ItemFactory {
         if (color == null ) { return null; }
         meta.setColor(color);
 
+        // get size matching to tier from config
+        int size = switch (tier) {
+            case 2 -> CaptureBioms.CONFIG.getBiomePotionSize()[1];
+            case 3 -> CaptureBioms.CONFIG.getBiomePotionSize()[2];
+            case 4 -> CaptureBioms.CONFIG.getBiomePotionSize()[3];
+            default -> CaptureBioms.CONFIG.getBiomePotionSize()[0];
+        };
+
         // set item name
         // parse org.bukkit.Color to net.kyori.adventure.text.format.NamedTextColor: NamedTextColor.nearestTo(TextColor.color(color.asRGB()))
         // make not italic: decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)
@@ -63,11 +63,13 @@ public class ItemFactory {
                                         .decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)),
                 Component.text("Size: ", NamedTextColor.GRAY)
                         .decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)
-                        .append(Component.text("1x1 chunk", NamedTextColor.WHITE))
+                        .append(Component.text(size + "x" + size + " blocks", NamedTextColor.WHITE))
                                         .decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)
         ));
         // PersistentDataContainer key to identify the biome potion when thrown
         meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebioms.biomepotion"), PersistentDataType.INTEGER, 1);
+        // PersistentDataContainer key to get the potion tier when thrown
+        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebioms.biomepotion_tier"), PersistentDataType.INTEGER, tier);
 
         // Hide the "no effects" tooltip
         potion.setItemMeta(meta);
