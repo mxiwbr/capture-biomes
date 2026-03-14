@@ -14,12 +14,15 @@ public class BiomeUtils {
         // set the potion color depending on the biome
         return (switch (biomeKey) {
 
-            // ice and snow biomes
-            case "snowy_tundra", "snowy_plains", "snowy_slopes", "snowy_beach",
-                 "snowy_taiga", "ice_spikes", "frozen_peaks" -> Color.AQUA;
+            // snowy biomes
+            case "snowy_tundra", "snowy_plains", "snowy_slopes", "snowy_beach", "snowy_taiga", "jagged_peaks" -> Color.WHITE;
+            // icy biomes
+            case "ice_spikes", "frozen_peaks", "frozen_ocean", "frozen_river", "deep_frozen_ocean" -> Color.AQUA;
 
             // hot biomes
-            case "desert", "savanna", "savanna_plateau", "badlands", "eroded_badlands", "windswept_savanna" -> Color.YELLOW;
+            case "desert" -> Color.YELLOW;
+            case "badlands", "eroded_badlands" -> Color.fromRGB(187, 101, 33);
+            case "savanna", "savanna_plateau", "windswept_savanna" -> Color.ORANGE;
 
             // forest and plains / meadow
             case "forest", "birch_forest", "dark_forest", "flower_forest",
@@ -33,17 +36,16 @@ public class BiomeUtils {
             case "jungle", "bamboo_jungle", "sparse_jungle" -> Color.LIME;
 
             // oceans and rivers
-            case "ocean", "deep_ocean", "warm_ocean", "lukewarm_ocean",
-                 "cold_ocean", "deep_lukewarm_ocean", "deep_cold_ocean",
-                 "frozen_ocean", "frozen_river", "deep_frozen_ocean", "river" -> Color.BLUE;
+            case "warm_ocean" -> Color.fromRGB(37, 105, 116);
+            case "ocean", "deep_ocean", "lukewarm_ocean",
+                 "cold_ocean", "deep_lukewarm_ocean", "deep_cold_ocean", "river" -> Color.fromRGB(35, 63, 124);
 
             // swamp
             case "swamp", "mangrove_swamp" -> Color.fromRGB(105, 78, 70);
 
             // stony biomes and mountains
-            case "stony_peaks", "stony_shore", "jagged_peaks", "windswept_gravelly_hills", "windswept_hills" -> Color.GRAY;
+            case "stony_peaks", "stony_shore", "windswept_gravelly_hills", "windswept_hills" -> Color.GRAY;
 
-            // fallback color
             default -> null;
 
         });

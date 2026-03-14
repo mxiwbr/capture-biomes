@@ -15,9 +15,20 @@ beacon:
   trigger_item: EXPERIENCE_BOTTLE     # The item that must be thrown on the beacon to trigger the biome capture
                                       # See https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html for the item names
 
-# --- TECHNICAL STUFF - Don't change if you don't now what you're doing! - Could crash your server! ---
+# --- Biome Potions ---
+potion-cooldown:                      # cooldown of the biome potions
+                                      # recommended to leave enabled to prevent players from crashing / lagging the server by throwing too many potions at once
+
+  enabled: true                        # default: true
+                                      # boolean (true / false)
+
+  length: 30                          # default: 30
+                                      # full seconds
+                                      # only relevant if enabled is true
+
+# --- Advanced settings – only change if you know what you're doing ---
 
 # --- Item checking (for XP bottles on beacon) ---
 item-check:
-  timeout-ticks: 200          # How long the plugin checks for items being on ground in ticks
-  interval-ticks: 2           # Interval between each check in ticks
+  timeout-ticks: 200                  # How long the plugin checks for each item being on ground in ticks (20 ticks = 1 second)
+  interval-ticks: 2                   # Interval between each check in ticks (20 ticks = 1 second)

@@ -33,44 +33,11 @@ public class BeaconRitual {
         Biome biome = location.getBlock().getBiome();
 
         // Cancel if biome is not supported or
-        switch (biome.getKey().getKey()) {
+        if (BiomeUtils.getBiomeColor(biome.getKey().getKey()) == null) {
 
-            // ice and snow biomes (except waters)
-            case "snowy_tundra", "snowy_plains", "snowy_slopes", "snowy_beach",
-                 "snowy_taiga", "ice_spikes", "frozen_peaks",
-
-            // hot biomes
-            "desert", "savanna", "savanna_plateau", "badlands", "eroded_badlands", "windswept_savanna",
-
-            // forest and plains / meadow
-            "forest", "birch_forest", "dark_forest", "flower_forest",
-            "old_growth_birch_forest", "old_growth_pine_taiga",
-            "old_growth_spruce_taiga", "windswept_forest", "grove", "taiga", "meadow", "cherry_grove", "sunflower_plains", "plains",
-
-            // pale
-            "pale_garden",
-
-            // jungle
-            "jungle", "bamboo_jungle", "sparse_jungle",
-
-            // oceans and rivers
-            "ocean", "deep_ocean", "warm_ocean", "lukewarm_ocean",
-                 "cold_ocean", "deep_lukewarm_ocean", "deep_cold_ocean",
-                 "frozen_ocean", "frozen_river", "deep_frozen_ocean", "river",
-
-            // swamp
-            "swamp", "mangrove_swamp",
-
-            // stony biomes and mountains
-            "stony_peaks", "stony_shore", "jagged_peaks", "windswept_gravelly_hills", "windswept_hills" -> {}
-
-            // if not supported, cancel
-            // for example caves, deep dark or custom bioms
-            default -> {
-                CaptureBioms.LOGGER.warning("Creation of biome bottle at " + location.toString() + " failed: the biome is either not supported or could not be found. " +
-                                                "If you think that this is a bug, please create an issue: https://github.com/mxiwbr/capture-bioms/issues");
-                return;
-            }
+            CaptureBioms.LOGGER.warning("Creation of biome bottle at " + location.toString() + " failed: the biome is either not supported or could not be found. " +
+                    "If you think that this is a bug, please create an issue: https://github.com/mxiwbr/capture-bioms/issues");
+            return;
 
         }
 

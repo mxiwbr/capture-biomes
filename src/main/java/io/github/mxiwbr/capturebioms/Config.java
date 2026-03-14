@@ -12,9 +12,14 @@ public class Config {
     // Amount of biome potions to get per tier
     private int[] biomePotionCount;
     private Material triggerItem;
+    private boolean enablePotionCooldown;
+    private int potionCooldown;
     private int timeoutTicks;
     private int intervalTicks;
 
+    /**
+     * Contains all configuration settings as private variables with getters
+     */
     public Config() {
 
         final FileConfiguration config = CaptureBioms.INSTANCE.getConfig();
@@ -34,6 +39,10 @@ public class Config {
                     config.getInt("beacon.biome-bottles-per-tier.tier-4")};
 
             this.triggerItem = Material.valueOf(config.getString("beacon.trigger_item"));
+
+            this.enablePotionCooldown = config.getBoolean("potion-cooldown.enabled");
+
+            this.potionCooldown = config.getInt("potion-cooldown.length");
 
             this.timeoutTicks = config.getInt("item-check.timeout-ticks");
 
