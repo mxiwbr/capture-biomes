@@ -66,8 +66,8 @@ public class ItemFactory {
                         .append(Component.text("1x1 chunk", NamedTextColor.WHITE))
                                         .decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)
         ));
-        // PersistentDataContainer key to identify biome potion when thrown
-        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebioms:biomepotion"), PersistentDataType.INTEGER, 1);
+        // PersistentDataContainer key to identify the biome potion when thrown
+        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebioms.biomepotion"), PersistentDataType.INTEGER, 1);
 
         // Hide the "no effects" tooltip
         potion.setItemMeta(meta);
