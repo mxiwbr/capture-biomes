@@ -45,13 +45,13 @@ tier-2: 2
 tier-3: 3
 tier-4: 4
 trigger_item: EXPERIENCE_BOTTLE     # The item that must be thrown on the beacon to trigger the biome capture
-# See https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html for the item names
+                                    # See https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html for the item names
 
 # --- Biome Potions ---
-potion-cooldown:                      # cooldown of the biome potions
-# recommended to leave enabled to prevent players from crashing / lagging the server by throwing too many potions at once
+potion-cooldown:                    # cooldown of the biome potions
+                                    # recommended to leave enabled to prevent players from crashing / lagging the server by throwing too many potions at once
 
-enabled: true                        # default: true
+enabled: true                       # default: true
 # boolean (true / false)
 
 length: 30                          # default: 30
