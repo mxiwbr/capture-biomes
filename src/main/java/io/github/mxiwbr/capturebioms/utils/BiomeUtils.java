@@ -1,6 +1,9 @@
 package io.github.mxiwbr.capturebioms.utils;
 
 import org.bukkit.Color;
+import org.bukkit.World;
+import org.bukkit.block.Biome;
+import org.bukkit.util.BoundingBox;
 
 public class BiomeUtils {
 
@@ -50,6 +53,23 @@ public class BiomeUtils {
 
         });
 
+    }
+
+    public static void fillBiome(World world, BoundingBox box, Biome biome) {
+
+        for (int x = (int) box.getMinX(); x <= box.getMaxX(); x++) {
+
+            for (int z = (int) box.getMinZ(); z <= box.getMaxZ(); z++) {
+
+                for (int y = (int) box.getMinY(); y <= box.getMaxY(); y++) {
+
+                    world.setBiome(x, y, z, biome);
+
+                }
+
+            }
+
+        }
     }
 
 }

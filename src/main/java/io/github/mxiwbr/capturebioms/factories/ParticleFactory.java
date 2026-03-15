@@ -61,7 +61,7 @@ public class ParticleFactory {
      * @param size
      * @param height y-coordinate of highest point
      */
-    public static void squareRisingEdges(Location center, Color color, int size, double height) {
+    public static void createSquareRisingEdges(Location center, Color color, int size, double height) {
 
         final double heightPerTick = 0.85;
 

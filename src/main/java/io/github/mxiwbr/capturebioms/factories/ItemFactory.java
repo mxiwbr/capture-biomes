@@ -70,6 +70,7 @@ public class ItemFactory {
         // PersistentDataContainer key to identify the biome potion when thrown
         // key value is the potion tier
         meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebioms.biomepotion"), PersistentDataType.INTEGER, tier);
+        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebioms.biomepotion.biome"), PersistentDataType.STRING, biome.getKey().getKey());
 
         // Hide the "no effects" tooltip
         potion.setItemMeta(meta);

@@ -58,11 +58,11 @@ public class Config {
             // Required items per tier
             this.requiredItemCount = new int[] { 16, 32, 48, 64 };
             // Amount of biome potions to get per tier
-            this.biomePotionSize = new int[] { 1, 2, 3, 4 };
+            this.biomePotionSize = new int[] { 4, 8, 16, 32 };
             this.triggerItem = Material.EXPERIENCE_BOTTLE;
             this.biomePotionsAmount = 1;
-            this.enablePotionCooldown = true;
-            this.potionCooldown = 30;
+            this.enablePotionCooldown = false;
+            this.potionCooldown = 15;
             this.timeoutTicks = 200;
             this.intervalTicks = 2;
 
