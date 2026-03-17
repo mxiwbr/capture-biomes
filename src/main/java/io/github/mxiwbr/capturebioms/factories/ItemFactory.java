@@ -2,6 +2,7 @@ package io.github.mxiwbr.capturebioms.factories;
 
 import io.github.mxiwbr.capturebioms.CaptureBioms;
 import io.github.mxiwbr.capturebioms.utils.BiomeUtils;
+import io.github.mxiwbr.capturebioms.utils.ConsoleUtils;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.TooltipDisplay;
 import io.papermc.paper.datacomponent.item.UseCooldown;
@@ -19,6 +20,8 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.apache.commons.text.WordUtils;
 import org.bukkit.persistence.PersistentDataType;
 import java.util.List;
+
+import static io.github.mxiwbr.capturebioms.utils.ConsoleUtils.logConsole;
 
 public class ItemFactory {
 
@@ -84,6 +87,8 @@ public class ItemFactory {
             UseCooldown useCooldown = UseCooldown.useCooldown(CaptureBioms.CONFIG.getPotionCooldown()).cooldownGroup(cooldownGroupKey).build();
             potion.setData(DataComponentTypes.USE_COOLDOWN, useCooldown);
         }
+
+        logConsole("A Biome Potion was created: " + potion.getItemMeta(), ConsoleUtils.logType.ADDITIONAL_INFO);
 
         return potion;
     }

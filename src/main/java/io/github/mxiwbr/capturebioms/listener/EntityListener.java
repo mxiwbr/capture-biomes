@@ -63,6 +63,8 @@ public class EntityListener implements Listener {
         // Cancel if not biome potion (key capturebioms.biomepotion)
         if (!pdc.has(key)) { return; }
 
+        logConsole("A thrown Biome Potion was detected at: " + potionEntity.getLocation(), ConsoleUtils.logType.ADDITIONAL_INFO);
+
         // the tier (level) of the potion (1 - 4)
         final int tier = pdc.get(key, PersistentDataType.INTEGER);
         areaEffectCloud.setRadius(0);
@@ -92,7 +94,7 @@ public class EntityListener implements Listener {
                 },
                 Math.min(nextBlockY + 5, maxHeight)), biome);
 
-
+        logConsole("A biome of type " + biome.getKey().getKey() + " with size " + tier + " x " + tier + " was created at center " + potionEntity.getLocation(), ConsoleUtils.logType.ADDITIONAL_INFO);
 
     }
 

@@ -20,6 +20,7 @@ public class Config {
     private boolean enablePotionCooldown;
     private int potionCooldown;
     private boolean enableConsoleLogging;
+    private boolean enableAdditionalConsoleLogging;
     private int timeoutTicks;
     private int intervalTicks;
 
@@ -64,6 +65,7 @@ public class Config {
             this.potionCooldown = config.getInt("potion-cooldown.length");
 
             this.enableConsoleLogging = config.getBoolean("console.enable-logging");
+            this.enableAdditionalConsoleLogging = config.getBoolean("console.enable-additional-logging");
 
             this.timeoutTicks = config.getInt("item-check.timeout-ticks");
             this.intervalTicks = config.getInt("item-check.interval-ticks");
@@ -81,6 +83,8 @@ public class Config {
             this.biomePotionsAmount = 1;
             this.enablePotionCooldown = false;
             this.potionCooldown = 15;
+            this.enableConsoleLogging = true;
+            this.enableAdditionalConsoleLogging = false;
             this.timeoutTicks = 200;
             this.intervalTicks = 2;
 
@@ -96,6 +100,8 @@ public class Config {
         this.biomePotionsAmount = 1;
         this.enablePotionCooldown = false;
         this.potionCooldown = 15;
+        this.enableConsoleLogging = true;
+        this.enableAdditionalConsoleLogging = false;
         this.timeoutTicks = 200;
         this.intervalTicks = 2;
 

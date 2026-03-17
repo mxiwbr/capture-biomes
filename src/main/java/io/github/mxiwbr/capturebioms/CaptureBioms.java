@@ -3,9 +3,12 @@ package io.github.mxiwbr.capturebioms;
 import io.github.mxiwbr.capturebioms.listener.EntityListener;
 import io.github.mxiwbr.capturebioms.listener.ItemListener;
 import io.github.mxiwbr.capturebioms.services.UpdateService;
+import io.github.mxiwbr.capturebioms.utils.ConsoleUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
+
+import static io.github.mxiwbr.capturebioms.utils.ConsoleUtils.logConsole;
 
 public final class CaptureBioms extends JavaPlugin {
 
@@ -23,7 +26,7 @@ public final class CaptureBioms extends JavaPlugin {
 
         // Set logger object to log from other classes
         LOGGER = getLogger();
-        LOGGER.info("Enabled!");
+        logConsole("Enabled!", ConsoleUtils.logType.INFO);
 
         // creates a default config.yml if there is none
         this.saveDefaultConfig();
