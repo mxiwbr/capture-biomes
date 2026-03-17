@@ -12,7 +12,7 @@ A PaperMC plugin that lets players capture a biome in a bottle and release it el
 ## Features
 - **Capture Biomes** allows you to capture a biome in a bottle as a **Biome Potion** by throwing XP Bottles on a **Beacon** and release it elsewhere
 - Potion colors, names and description match the captured biome
-- Get more than one Biome Potion at a time depending on the size of the Beacon pyramid
+- Get **bigger Biome Potions** depending on the **size of the Beacon pyramid**
 - **Full control**: Edit the plugin's config to adapt it to your preferences
 
 ## Usage
