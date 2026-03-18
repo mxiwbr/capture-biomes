@@ -88,6 +88,10 @@ console:
                                       # boolean (true / false)
                                       # if you set this to false, all console logging will be disabled. This includes all info logs as well as warnings and severe errors
 
+  enable-additional-logging: false    # default: false
+                                      # will enable additional logging whenever an action is done by the plugin, like creating or releasing a biome potion
+                                      # only relevant if enable-logging is true
+
 # --- Item checking (for XP bottles on beacon) ---
 item-check:
   timeout-ticks: 200                  # How long the plugin checks for each item being on ground in ticks (20 ticks = 1 second)
