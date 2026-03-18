@@ -1,8 +1,14 @@
 package io.github.mxiwbr.capturebioms.utils;
 
 import io.github.mxiwbr.capturebioms.CaptureBioms;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.util.BoundingBox;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class BlockUtils {
 
@@ -46,6 +52,29 @@ public class BlockUtils {
 
         return new BoundingBox(minX, minY, minZ, maxX, height, maxZ);
 
+    }
+
+    public static ArrayList<Chunk> getChunksFromBoundingBox (BoundingBox boundingBox, World world) {
+
+        var chunkList = new ArrayList<Chunk>();
+
+        // Get min and max chunk coordinates for iterating
+        int minChunkX = (int) Math.floor(boundingBox.getMinX() / 16.0);
+        int maxChunkX = (int) Math.floor(boundingBox.getMaxX() / 16.0);
+        int minChunkZ = (int) Math.floor(boundingBox.getMinZ() / 16.0);
+        int maxChunkZ = (int) Math.floor(boundingBox.getMaxZ() / 16.0);
+
+        for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+
+            for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+
+                chunkList.add(world.getChunkAt(cx, cz));
+
+            }
+
+        }
+
+        return chunkList;
 
     }
 

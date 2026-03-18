@@ -73,6 +73,15 @@ public class EntityListener implements Listener {
         // next block above the location where the potion was thrown
         final int nextBlockY = BlockUtils.getNextSolidBlockY(potionEntity.getLocation());
 
+        final BoundingBox boundingBox = BlockUtils.getBoundingBox(potionEntity.getLocation(),
+                switch (tier) {
+                    case 2 -> CaptureBioms.CONFIG.getBiomePotionSize()[1];
+                    case 3 -> CaptureBioms.CONFIG.getBiomePotionSize()[2];
+                    case 4 -> CaptureBioms.CONFIG.getBiomePotionSize()[3];
+                    default -> CaptureBioms.CONFIG.getBiomePotionSize()[0];
+                },
+                Math.min(nextBlockY + 5, maxHeight));
+
         // particle effect up to max world height or next block on y coordinate above the block
         ParticleFactory.createSquareRisingEdges(potionEntity.getLocation(),
                 potionEntity.getPotionMeta().getColor(),
@@ -85,14 +94,15 @@ public class EntityListener implements Listener {
                 Math.min(nextBlockY + 5, maxHeight));
 
         // get a bounding box representing the particle box and fill biome
-        BiomeUtils.fillBiome(world, BlockUtils.getBoundingBox(potionEntity.getLocation(),
-                switch (tier) {
-                    case 2 -> CaptureBioms.CONFIG.getBiomePotionSize()[1];
-                    case 3 -> CaptureBioms.CONFIG.getBiomePotionSize()[2];
-                    case 4 -> CaptureBioms.CONFIG.getBiomePotionSize()[3];
-                    default -> CaptureBioms.CONFIG.getBiomePotionSize()[0];
-                },
-                Math.min(nextBlockY + 5, maxHeight)), biome);
+        BiomeUtils.fillBiome(world, boundingBox, biome);
+
+        // Refresh affected chunks for players to see the biome change instantly
+        var affectedChunks = BlockUtils.getChunksFromBoundingBox(boundingBox, world);
+        for (var chunk : affectedChunks) {
+
+            world.refreshChunk(chunk.getX(), chunk.getZ());
+
+        }
 
         logConsole("A biome of type " + biome.getKey().getKey() + " with size " + tier + " x " + tier + " was created at center " + potionEntity.getLocation(), ConsoleUtils.logType.ADDITIONAL_INFO);
 
