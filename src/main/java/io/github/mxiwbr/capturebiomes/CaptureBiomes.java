@@ -39,8 +39,7 @@ public final class CaptureBiomes extends JavaPlugin {
         LOGGER = getLogger();
         logConsole("Enabled!", ConsoleUtils.logType.INFO);
 
-        //newVersionAvailable = UpdateService.checkForUpdates();
-        newVersionAvailable = true;
+        newVersionAvailable = UpdateService.checkForUpdates();
 
         // Register ItemListener
         getServer().getPluginManager().registerEvents(new ItemListener(), this);
