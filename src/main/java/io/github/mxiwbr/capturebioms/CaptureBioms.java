@@ -24,10 +24,6 @@ public final class CaptureBioms extends JavaPlugin {
         // Global plugin instance object
         INSTANCE = this;
 
-        // Set logger object to log from other classes
-        LOGGER = getLogger();
-        logConsole("Enabled!", ConsoleUtils.logType.INFO);
-
         // creates a default config.yml if there is none
         this.saveDefaultConfig();
         // Loads config defaults from plugin resource
@@ -36,6 +32,10 @@ public final class CaptureBioms extends JavaPlugin {
         saveConfig();
         // Creates a config object to get config values
         CONFIG = new Config();
+
+        // Set logger object to log from other classes
+        LOGGER = getLogger();
+        logConsole("Enabled!", ConsoleUtils.logType.INFO);
 
         Boolean newVersionAvailable = UpdateService.checkForUpdates();
 
