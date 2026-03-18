@@ -2,18 +2,25 @@ package io.github.mxiwbr.capturebiomes.listener;
 
 import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 import io.github.mxiwbr.capturebiomes.factories.ParticleFactory;
+import io.github.mxiwbr.capturebiomes.services.UpdateService;
 import io.github.mxiwbr.capturebiomes.utils.BiomeUtils;
 import io.github.mxiwbr.capturebiomes.utils.BlockUtils;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import org.apache.commons.text.WordUtils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.entity.AreaEffectCloud;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.LingeringPotionSplashEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -97,6 +104,32 @@ public class EntityListener implements Listener {
         BlockUtils.refreshChunksFromBoundingBox(boundingBox, world);
 
         logConsole("A biome of type " + biome.getKey().getKey() + " with size " + tier + " x " + tier + " was created at center " + potionEntity.getLocation(), ConsoleUtils.logType.ADDITIONAL_INFO);
+
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+
+        Player player = event.getPlayer();
+
+        if (player.isOp() && CaptureBiomes.newVersionAvailable) {
+
+            try {
+
+                player.sendMessage(Component.text("[CaptureBiomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                        .append(Component.text("There is a newer plugin version available: "
+                                + UpdateService.getLatestVersion()
+                                + ", you're on: "
+                                + CaptureBiomes.INSTANCE.getPluginMeta().getVersion(), NamedTextColor.GREEN)
+                                    .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+
+            }
+            catch (Exception e) {
+
+                CaptureBiomes.LOGGER.severe(e.getMessage());
+
+            }
+        }
 
     }
 

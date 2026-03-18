@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -25,19 +26,7 @@ public class UpdateService {
 
         try {
 
-            // Get latest plugin release from GitHub
-            var httpClient = HttpClient.newHttpClient();
-            var httpRequest = HttpRequest.newBuilder()
-                    .uri(URI.create("https://api.github.com/repos/mxiwbr/capture-biomes/releases/latest"))
-                    .header("Accept", "application/vnd.github.v3+json")
-                    .build();
-            HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-            httpClient.close();
-
-            // Parse response to JSON and get the release tag as string
-            String jsonString = httpResponse.body();
-            JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
-            String latestPluginVersion = jsonObject.get("tag_name").getAsString();
+            String latestPluginVersion = getLatestVersion();
 
             // Check if new version is available and log it
             if (!pluginVersion.equals(latestPluginVersion)) {
@@ -58,6 +47,30 @@ public class UpdateService {
         }
 
         return false;
+
+    }
+
+    /**
+     * Gets latest plugin version from GitHub and returns it as string
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static String getLatestVersion() throws IOException, InterruptedException {
+
+        // Get latest plugin release from GitHub
+        var httpClient = HttpClient.newHttpClient();
+        var httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create("https://api.github.com/repos/mxiwbr/capture-biomes/releases/latest"))
+                .header("Accept", "application/vnd.github.v3+json")
+                .build();
+        HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        httpClient.close();
+
+        // Parse response to JSON and get the release tag as string
+        String jsonString = httpResponse.body();
+        JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
+
+        return jsonObject.get("tag_name").getAsString();
 
     }
 

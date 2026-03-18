@@ -4,6 +4,7 @@ import io.github.mxiwbr.capturebiomes.listener.EntityListener;
 import io.github.mxiwbr.capturebiomes.listener.ItemListener;
 import io.github.mxiwbr.capturebiomes.services.UpdateService;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
+import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ public final class CaptureBiomes extends JavaPlugin {
     public static Logger LOGGER;
     public static CaptureBiomes INSTANCE;
     public static Config CONFIG;
+    public static Boolean newVersionAvailable;
 
     // Called when the plugin is enabled
     @Override
@@ -37,7 +39,8 @@ public final class CaptureBiomes extends JavaPlugin {
         LOGGER = getLogger();
         logConsole("Enabled!", ConsoleUtils.logType.INFO);
 
-        Boolean newVersionAvailable = UpdateService.checkForUpdates();
+        //newVersionAvailable = UpdateService.checkForUpdates();
+        newVersionAvailable = true;
 
         // Register ItemListener
         getServer().getPluginManager().registerEvents(new ItemListener(), this);
