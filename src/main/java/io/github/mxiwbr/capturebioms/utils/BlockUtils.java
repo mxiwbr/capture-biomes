@@ -54,7 +54,13 @@ public class BlockUtils {
 
     }
 
-    public static ArrayList<Chunk> getChunksFromBoundingBox (BoundingBox boundingBox, World world) {
+    /**
+     * Get all chunks in a given BoundingBox of a given world
+     * @param boundingBox
+     * @param world
+     * @return ArrayList of type Chunk
+     */
+    private static ArrayList<Chunk> getChunksFromBoundingBox (BoundingBox boundingBox, World world) {
 
         var chunkList = new ArrayList<Chunk>();
 
@@ -78,5 +84,20 @@ public class BlockUtils {
 
     }
 
+    /**
+     * Refreshes all chunks in a given BoundingBox of a given world
+     * @param boundingBox
+     * @param world
+     */
+    public static void refreshChunksFromBoundingBox(BoundingBox boundingBox, World world) {
+
+        var affectedChunks = getChunksFromBoundingBox(boundingBox, world);
+        for (var chunk : affectedChunks) {
+
+            world.refreshChunk(chunk.getX(), chunk.getZ());
+
+        }
+
+    }
 
 }

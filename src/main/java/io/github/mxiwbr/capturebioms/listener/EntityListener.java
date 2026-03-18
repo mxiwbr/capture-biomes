@@ -11,6 +11,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
+import org.bukkit.block.Block;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
@@ -97,12 +98,7 @@ public class EntityListener implements Listener {
         BiomeUtils.fillBiome(world, boundingBox, biome);
 
         // Refresh affected chunks for players to see the biome change instantly
-        var affectedChunks = BlockUtils.getChunksFromBoundingBox(boundingBox, world);
-        for (var chunk : affectedChunks) {
-
-            world.refreshChunk(chunk.getX(), chunk.getZ());
-
-        }
+        BlockUtils.refreshChunksFromBoundingBox(boundingBox, world);
 
         logConsole("A biome of type " + biome.getKey().getKey() + " with size " + tier + " x " + tier + " was created at center " + potionEntity.getLocation(), ConsoleUtils.logType.ADDITIONAL_INFO);
 
