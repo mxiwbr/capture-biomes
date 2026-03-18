@@ -62,7 +62,7 @@ public class BeaconRitual {
         }
 
         // get the amount of potions set in the config (default 1)
-        potion.setAmount(CaptureBioms.CONFIG.getBiomePotionsAmount());
+        potion.setAmount(CaptureBiomes.CONFIG.getBiomePotionsAmount());
         ParticleFactory.createParticleSpiral(beacon.getLocation(), BiomeUtils.getBiomeColor(biome.getKey().getKey()));
         // drop potion on location and play sound
         world.dropItemNaturally(location, potion);

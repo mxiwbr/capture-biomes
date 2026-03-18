@@ -1,6 +1,6 @@
 package io.github.mxiwbr.capturebiomes.factories;
 
-import io.github.mxiwbr.capturebiomes.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -50,7 +50,7 @@ public class ParticleFactory {
                 t += Math.PI / 8;
             }
 
-        }.runTaskTimer(CaptureBioms.INSTANCE, 0L, 1L);
+        }.runTaskTimer(CaptureBiomes.INSTANCE, 0L, 1L);
     }
 
     /**
@@ -107,7 +107,7 @@ public class ParticleFactory {
                 currentYOffset += heightPerTick;
             }
 
-        }.runTaskTimer(CaptureBioms.INSTANCE, 0L, 1L);
+        }.runTaskTimer(CaptureBiomes.INSTANCE, 0L, 1L);
     }
 
 

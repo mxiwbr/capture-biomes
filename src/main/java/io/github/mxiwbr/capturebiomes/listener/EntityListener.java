@@ -1,6 +1,6 @@
 package io.github.mxiwbr.capturebiomes.listener;
 
-import io.github.mxiwbr.capturebiomes.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 import io.github.mxiwbr.capturebiomes.factories.ParticleFactory;
 import io.github.mxiwbr.capturebiomes.utils.BiomeUtils;
 import io.github.mxiwbr.capturebiomes.utils.BlockUtils;
@@ -41,10 +41,10 @@ public class EntityListener implements Listener {
 
         PersistentDataContainer pdc = potionItem.getItemMeta().getPersistentDataContainer();
 
-        NamespacedKey key = new NamespacedKey(CaptureBioms.INSTANCE, "capturebiomes.biomepotion");
+        NamespacedKey key = new NamespacedKey(CaptureBiomes.INSTANCE, "capturebiomes.biomepotion");
 
         // Get the biome from pdt key "capturebiomes.biomepotion.biome"
-        var biomeKey = pdc.get(new NamespacedKey(CaptureBioms.INSTANCE, "capturebiomes.biomepotion.biome"), PersistentDataType.STRING);
+        var biomeKey = pdc.get(new NamespacedKey(CaptureBiomes.INSTANCE, "capturebiomes.biomepotion.biome"), PersistentDataType.STRING);
         var biomes = RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME);
         var biome = biomes.get(NamespacedKey.fromString(biomeKey));
 
@@ -72,10 +72,10 @@ public class EntityListener implements Listener {
 
         final BoundingBox boundingBox = BlockUtils.getBoundingBox(potionEntity.getLocation(),
                 switch (tier) {
-                    case 2 -> CaptureBioms.CONFIG.getBiomePotionSize()[1];
-                    case 3 -> CaptureBioms.CONFIG.getBiomePotionSize()[2];
-                    case 4 -> CaptureBioms.CONFIG.getBiomePotionSize()[3];
-                    default -> CaptureBioms.CONFIG.getBiomePotionSize()[0];
+                    case 2 -> CaptureBiomes.CONFIG.getBiomePotionSize()[1];
+                    case 3 -> CaptureBiomes.CONFIG.getBiomePotionSize()[2];
+                    case 4 -> CaptureBiomes.CONFIG.getBiomePotionSize()[3];
+                    default -> CaptureBiomes.CONFIG.getBiomePotionSize()[0];
                 },
                 Math.min(nextBlockY + 5, maxHeight));
 
@@ -83,10 +83,10 @@ public class EntityListener implements Listener {
         ParticleFactory.createSquareRisingEdges(potionEntity.getLocation(),
                 potionEntity.getPotionMeta().getColor(),
                 switch (tier) {
-                    case 2 -> CaptureBioms.CONFIG.getBiomePotionSize()[1];
-                    case 3 -> CaptureBioms.CONFIG.getBiomePotionSize()[2];
-                    case 4 -> CaptureBioms.CONFIG.getBiomePotionSize()[3];
-                    default -> CaptureBioms.CONFIG.getBiomePotionSize()[0];
+                    case 2 -> CaptureBiomes.CONFIG.getBiomePotionSize()[1];
+                    case 3 -> CaptureBiomes.CONFIG.getBiomePotionSize()[2];
+                    case 4 -> CaptureBiomes.CONFIG.getBiomePotionSize()[3];
+                    default -> CaptureBiomes.CONFIG.getBiomePotionSize()[0];
                 },
                 Math.min(nextBlockY + 5, maxHeight));
 

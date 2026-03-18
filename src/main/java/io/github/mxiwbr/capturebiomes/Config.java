@@ -29,7 +29,7 @@ public class Config {
      */
     public Config() {
 
-        final FileConfiguration config = CaptureBioms.INSTANCE.getConfig();
+        final FileConfiguration config = CaptureBiomes.INSTANCE.getConfig();
 
         try {
 

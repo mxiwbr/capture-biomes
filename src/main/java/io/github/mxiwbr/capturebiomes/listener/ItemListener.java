@@ -1,7 +1,7 @@
 package io.github.mxiwbr.capturebiomes.listener;
 
 import io.github.mxiwbr.capturebiomes.BeaconRitual;
-import io.github.mxiwbr.capturebiomes.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 import io.github.mxiwbr.capturebiomes.utils.ItemUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,7 +27,7 @@ public class ItemListener implements Listener {
         Item item = event.getEntity();
 
         // Cancel if the item is not the trigger item
-        if (item.getItemStack().getType() != CaptureBioms.CONFIG.getTriggerItem()) { return; }
+        if (item.getItemStack().getType() != CaptureBiomes.CONFIG.getTriggerItem()) { return; }
 
         ItemUtils.checkItemOnGround(item, () -> {
 
@@ -46,10 +46,10 @@ public class ItemListener implements Listener {
 
             // Required amount of xp-bottles per tier
             int requiredBottleAmount = switch (tier) {
-                case 1 -> CaptureBioms.CONFIG.getRequiredItemCount()[0];
-                case 2 -> CaptureBioms.CONFIG.getRequiredItemCount()[1];
-                case 3 -> CaptureBioms.CONFIG.getRequiredItemCount()[2];
-                default -> CaptureBioms.CONFIG.getRequiredItemCount()[3];
+                case 1 -> CaptureBiomes.CONFIG.getRequiredItemCount()[0];
+                case 2 -> CaptureBiomes.CONFIG.getRequiredItemCount()[1];
+                case 3 -> CaptureBiomes.CONFIG.getRequiredItemCount()[2];
+                default -> CaptureBiomes.CONFIG.getRequiredItemCount()[3];
             };
 
             // Get amount of items on the beacon

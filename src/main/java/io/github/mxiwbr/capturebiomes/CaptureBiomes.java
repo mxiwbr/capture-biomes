@@ -10,11 +10,11 @@ import java.util.logging.Logger;
 
 import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.logConsole;
 
-public final class CaptureBioms extends JavaPlugin {
+public final class CaptureBiomes extends JavaPlugin {
 
     // Console logger
     public static Logger LOGGER;
-    public static CaptureBioms INSTANCE;
+    public static CaptureBiomes INSTANCE;
     public static Config CONFIG;
 
     // Called when the plugin is enabled

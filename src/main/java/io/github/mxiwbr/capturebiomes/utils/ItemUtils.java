@@ -1,6 +1,6 @@
 package io.github.mxiwbr.capturebiomes.utils;
 
-import io.github.mxiwbr.capturebiomes.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -51,7 +51,7 @@ public class ItemUtils {
             public void run() {
 
                 // if the item is not there anymore or the elapsed time is more than it should be, cancel the task and return
-                if (!item.isValid() || elapsed >= CaptureBioms.CONFIG.getTimeoutTicks()) {
+                if (!item.isValid() || elapsed >= CaptureBiomes.CONFIG.getTimeoutTicks()) {
 
                     this.cancel();
 
@@ -67,11 +67,11 @@ public class ItemUtils {
                 }
 
                 // increase the timer
-                elapsed += CaptureBioms.CONFIG.getIntervalTicks();
+                elapsed += CaptureBiomes.CONFIG.getIntervalTicks();
             }
 
             // run Task (directly after 0 Ticks, loop every [checkInterval] ticks
-        }.runTaskTimer(CaptureBioms.INSTANCE, 0L, CaptureBioms.CONFIG.getIntervalTicks());
+        }.runTaskTimer(CaptureBiomes.INSTANCE, 0L, CaptureBiomes.CONFIG.getIntervalTicks());
     }
 
 }

@@ -1,6 +1,6 @@
-name: CaptureBioms
+name: CaptureBiomes
 version: 1.0.0
-main: io.github.mxiwbr.capturebiomes.CaptureBioms
+main: io.github.mxiwbr.capturebiomes.CaptureBiomes
 description: A PaperMC plugin that lets players capture a biome in a bottle.
 author: mxiwbr
 website: https://github.com/mxiwbr/capture-bioms

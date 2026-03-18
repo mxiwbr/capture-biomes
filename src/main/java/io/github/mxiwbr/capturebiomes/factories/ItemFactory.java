@@ -1,6 +1,6 @@
 package io.github.mxiwbr.capturebiomes.factories;
 
-import io.github.mxiwbr.capturebiomes.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 import io.github.mxiwbr.capturebiomes.utils.BiomeUtils;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import io.papermc.paper.datacomponent.DataComponentTypes;
@@ -48,10 +48,10 @@ public class ItemFactory {
 
         // get size matching to tier from config
         int size = switch (tier) {
-            case 2 -> CaptureBioms.CONFIG.getBiomePotionSize()[1];
-            case 3 -> CaptureBioms.CONFIG.getBiomePotionSize()[2];
-            case 4 -> CaptureBioms.CONFIG.getBiomePotionSize()[3];
-            default -> CaptureBioms.CONFIG.getBiomePotionSize()[0];
+            case 2 -> CaptureBiomes.CONFIG.getBiomePotionSize()[1];
+            case 3 -> CaptureBiomes.CONFIG.getBiomePotionSize()[2];
+            case 4 -> CaptureBiomes.CONFIG.getBiomePotionSize()[3];
+            default -> CaptureBiomes.CONFIG.getBiomePotionSize()[0];
         };
 
         // set item name
@@ -72,19 +72,19 @@ public class ItemFactory {
         ));
         // PersistentDataContainer key to identify the biome potion when thrown
         // key value is the potion tier
-        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebiomes.biomepotion"), PersistentDataType.INTEGER, tier);
-        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebiomes.biomepotion.biome"), PersistentDataType.STRING, biome.getKey().getKey());
+        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBiomes.INSTANCE, "capturebiomes.biomepotion"), PersistentDataType.INTEGER, tier);
+        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBiomes.INSTANCE, "capturebiomes.biomepotion.biome"), PersistentDataType.STRING, biome.getKey().getKey());
 
         // Hide the "no effects" tooltip
         potion.setItemMeta(meta);
         potion.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().addHiddenComponents(DataComponentTypes.POTION_CONTENTS));
 
         // Only apply the potion cooldown if it is enabled (default) in the config
-        if (CaptureBioms.CONFIG.isEnablePotionCooldown()) {
+        if (CaptureBiomes.CONFIG.isEnablePotionCooldown()) {
 
             // set potion cooldown of 30 seconds for all biome potions
             Key cooldownGroupKey = Key.key("capturebiomes", "potion_cooldown");
-            UseCooldown useCooldown = UseCooldown.useCooldown(CaptureBioms.CONFIG.getPotionCooldown()).cooldownGroup(cooldownGroupKey).build();
+            UseCooldown useCooldown = UseCooldown.useCooldown(CaptureBiomes.CONFIG.getPotionCooldown()).cooldownGroup(cooldownGroupKey).build();
             potion.setData(DataComponentTypes.USE_COOLDOWN, useCooldown);
         }
 

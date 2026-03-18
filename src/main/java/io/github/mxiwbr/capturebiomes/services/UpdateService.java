@@ -1,6 +1,6 @@
 package io.github.mxiwbr.capturebiomes.services;
 
-import io.github.mxiwbr.capturebiomes.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
@@ -19,7 +19,7 @@ public class UpdateService {
      */
     public static Boolean checkForUpdates() {
 
-        final String pluginVersion = CaptureBioms.INSTANCE.getPluginMeta().getVersion();
+        final String pluginVersion = CaptureBiomes.INSTANCE.getPluginMeta().getVersion();
 
         logConsole("Checking for updates...", ConsoleUtils.logType.INFO);
 
@@ -54,7 +54,7 @@ public class UpdateService {
 
             logConsole("An error occurred while checking for updates:", ConsoleUtils.logType.WARNING);
             logConsole(e.getClass().getSimpleName() + " - " + e.getMessage(), ConsoleUtils.logType.WARNING);
-            if (CaptureBioms.CONFIG.isEnableConsoleLogging()) { e.printStackTrace(); }
+            if (CaptureBiomes.CONFIG.isEnableConsoleLogging()) { e.printStackTrace(); }
         }
 
         return false;

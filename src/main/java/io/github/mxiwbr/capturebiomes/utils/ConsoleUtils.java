@@ -1,7 +1,7 @@
 package io.github.mxiwbr.capturebiomes.utils;
 
 
-import io.github.mxiwbr.capturebiomes.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 
 public class ConsoleUtils {
 
@@ -22,23 +22,23 @@ public class ConsoleUtils {
      */
     public static void logConsole(String message, logType type) {
 
-        if (CaptureBioms.CONFIG.isEnableConsoleLogging()) {
+        if (CaptureBiomes.CONFIG.isEnableConsoleLogging()) {
 
             switch (type) {
 
                 case INFO:
-                    CaptureBioms.LOGGER.info(message);
+                    CaptureBiomes.LOGGER.info(message);
                     break;
                 case ADDITIONAL_INFO:
-                    if (CaptureBioms.CONFIG.isEnableAdditionalConsoleLogging()) {
-                        CaptureBioms.LOGGER.info(message);
+                    if (CaptureBiomes.CONFIG.isEnableAdditionalConsoleLogging()) {
+                        CaptureBiomes.LOGGER.info(message);
                     }
                     break;
                 case WARNING:
-                    CaptureBioms.LOGGER.warning(message);
+                    CaptureBiomes.LOGGER.warning(message);
                     break;
                 case SEVERE:
-                    CaptureBioms.LOGGER.severe(message);
+                    CaptureBiomes.LOGGER.severe(message);
                     break;
 
             }
