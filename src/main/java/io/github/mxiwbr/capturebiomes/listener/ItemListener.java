@@ -1,8 +1,8 @@
-package io.github.mxiwbr.capturebioms.listener;
+package io.github.mxiwbr.capturebiomes.listener;
 
-import io.github.mxiwbr.capturebioms.BeaconRitual;
-import io.github.mxiwbr.capturebioms.CaptureBioms;
-import io.github.mxiwbr.capturebioms.utils.ItemUtils;
+import io.github.mxiwbr.capturebiomes.BeaconRitual;
+import io.github.mxiwbr.capturebiomes.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.utils.ItemUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Beacon;

@@ -1,13 +1,10 @@
-package io.github.mxiwbr.capturebioms.utils;
+package io.github.mxiwbr.capturebiomes.utils;
 
-import io.github.mxiwbr.capturebioms.CaptureBioms;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.util.BoundingBox;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BlockUtils {

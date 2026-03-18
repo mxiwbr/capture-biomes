@@ -1,12 +1,12 @@
-package io.github.mxiwbr.capturebioms;
+package io.github.mxiwbr.capturebiomes;
 
-import io.github.mxiwbr.capturebioms.exceptions.ConfigLoadingException;
-import io.github.mxiwbr.capturebioms.utils.ConsoleUtils;
+import io.github.mxiwbr.capturebiomes.exceptions.ConfigLoadingException;
+import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import static io.github.mxiwbr.capturebioms.utils.ConsoleUtils.logConsole;
+import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.logConsole;
 
 @Getter
 public class Config {

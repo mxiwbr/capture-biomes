@@ -1,17 +1,16 @@
-package io.github.mxiwbr.capturebioms.services;
+package io.github.mxiwbr.capturebiomes.services;
 
-import io.github.mxiwbr.capturebioms.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.CaptureBioms;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import io.github.mxiwbr.capturebioms.utils.ConsoleUtils;
+import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 
-import java.io.Console;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import static io.github.mxiwbr.capturebioms.utils.ConsoleUtils.logConsole;
+import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.logConsole;
 
 public class UpdateService {
 

@@ -1,19 +1,17 @@
-package io.github.mxiwbr.capturebioms;
+package io.github.mxiwbr.capturebiomes;
 
-import io.github.mxiwbr.capturebioms.utils.BiomeUtils;
-import io.github.mxiwbr.capturebioms.factories.ItemFactory;
-import io.github.mxiwbr.capturebioms.utils.ConsoleUtils;
-import io.github.mxiwbr.capturebioms.utils.ItemUtils;
-import io.github.mxiwbr.capturebioms.factories.ParticleFactory;
+import io.github.mxiwbr.capturebiomes.utils.BiomeUtils;
+import io.github.mxiwbr.capturebiomes.factories.ItemFactory;
+import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
+import io.github.mxiwbr.capturebiomes.utils.ItemUtils;
+import io.github.mxiwbr.capturebiomes.factories.ParticleFactory;
 import org.bukkit.*;
 import org.bukkit.block.Beacon;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
-import java.io.Console;
-
-import static io.github.mxiwbr.capturebioms.utils.ConsoleUtils.logConsole;
+import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.logConsole;
 
 public class BeaconRitual {
 

@@ -1,7 +1,6 @@
-package io.github.mxiwbr.capturebioms.utils;
+package io.github.mxiwbr.capturebiomes.utils;
 
-import io.github.mxiwbr.capturebioms.CaptureBioms;
-import org.bukkit.Bukkit;
+import io.github.mxiwbr.capturebiomes.CaptureBioms;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;

@@ -1,6 +1,6 @@
-package io.github.mxiwbr.capturebioms.factories;
+package io.github.mxiwbr.capturebiomes.factories;
 
-import io.github.mxiwbr.capturebioms.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.CaptureBioms;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;

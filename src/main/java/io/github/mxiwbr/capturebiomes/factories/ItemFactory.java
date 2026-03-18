@@ -1,8 +1,8 @@
-package io.github.mxiwbr.capturebioms.factories;
+package io.github.mxiwbr.capturebiomes.factories;
 
-import io.github.mxiwbr.capturebioms.CaptureBioms;
-import io.github.mxiwbr.capturebioms.utils.BiomeUtils;
-import io.github.mxiwbr.capturebioms.utils.ConsoleUtils;
+import io.github.mxiwbr.capturebiomes.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.utils.BiomeUtils;
+import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.TooltipDisplay;
 import io.papermc.paper.datacomponent.item.UseCooldown;
@@ -21,7 +21,7 @@ import org.apache.commons.text.WordUtils;
 import org.bukkit.persistence.PersistentDataType;
 import java.util.List;
 
-import static io.github.mxiwbr.capturebioms.utils.ConsoleUtils.logConsole;
+import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.logConsole;
 
 public class ItemFactory {
 
@@ -72,8 +72,8 @@ public class ItemFactory {
         ));
         // PersistentDataContainer key to identify the biome potion when thrown
         // key value is the potion tier
-        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebioms.biomepotion"), PersistentDataType.INTEGER, tier);
-        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebioms.biomepotion.biome"), PersistentDataType.STRING, biome.getKey().getKey());
+        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebiomes.biomepotion"), PersistentDataType.INTEGER, tier);
+        meta.getPersistentDataContainer().set(new NamespacedKey(CaptureBioms.INSTANCE, "capturebiomes.biomepotion.biome"), PersistentDataType.STRING, biome.getKey().getKey());
 
         // Hide the "no effects" tooltip
         potion.setItemMeta(meta);
@@ -83,7 +83,7 @@ public class ItemFactory {
         if (CaptureBioms.CONFIG.isEnablePotionCooldown()) {
 
             // set potion cooldown of 30 seconds for all biome potions
-            Key cooldownGroupKey = Key.key("capturebioms", "potion_cooldown");
+            Key cooldownGroupKey = Key.key("capturebiomes", "potion_cooldown");
             UseCooldown useCooldown = UseCooldown.useCooldown(CaptureBioms.CONFIG.getPotionCooldown()).cooldownGroup(cooldownGroupKey).build();
             potion.setData(DataComponentTypes.USE_COOLDOWN, useCooldown);
         }

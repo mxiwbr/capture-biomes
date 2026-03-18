@@ -1,14 +1,14 @@
-package io.github.mxiwbr.capturebioms;
+package io.github.mxiwbr.capturebiomes;
 
-import io.github.mxiwbr.capturebioms.listener.EntityListener;
-import io.github.mxiwbr.capturebioms.listener.ItemListener;
-import io.github.mxiwbr.capturebioms.services.UpdateService;
-import io.github.mxiwbr.capturebioms.utils.ConsoleUtils;
+import io.github.mxiwbr.capturebiomes.listener.EntityListener;
+import io.github.mxiwbr.capturebiomes.listener.ItemListener;
+import io.github.mxiwbr.capturebiomes.services.UpdateService;
+import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
-import static io.github.mxiwbr.capturebioms.utils.ConsoleUtils.logConsole;
+import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.logConsole;
 
 public final class CaptureBioms extends JavaPlugin {
 

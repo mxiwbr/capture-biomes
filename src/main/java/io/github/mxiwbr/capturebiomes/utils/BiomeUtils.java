@@ -1,4 +1,4 @@
-package io.github.mxiwbr.capturebioms.utils;
+package io.github.mxiwbr.capturebiomes.utils;
 
 import org.bukkit.Color;
 import org.bukkit.World;

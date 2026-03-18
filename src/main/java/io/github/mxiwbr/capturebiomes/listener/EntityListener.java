@@ -1,17 +1,14 @@
-package io.github.mxiwbr.capturebioms.listener;
+package io.github.mxiwbr.capturebiomes.listener;
 
-import io.github.mxiwbr.capturebioms.CaptureBioms;
-import io.github.mxiwbr.capturebioms.factories.ParticleFactory;
-import io.github.mxiwbr.capturebioms.utils.BiomeUtils;
-import io.github.mxiwbr.capturebioms.utils.BlockUtils;
-import io.github.mxiwbr.capturebioms.utils.ConsoleUtils;
+import io.github.mxiwbr.capturebiomes.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.factories.ParticleFactory;
+import io.github.mxiwbr.capturebiomes.utils.BiomeUtils;
+import io.github.mxiwbr.capturebiomes.utils.BlockUtils;
+import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
 import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
-import org.bukkit.block.Block;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
@@ -21,9 +18,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.BoundingBox;
-import com.destroystokyo.paper.*;
 
-import static io.github.mxiwbr.capturebioms.utils.ConsoleUtils.logConsole;
+import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.logConsole;
 
 /**
  * Listener class for entity events
@@ -45,10 +41,10 @@ public class EntityListener implements Listener {
 
         PersistentDataContainer pdc = potionItem.getItemMeta().getPersistentDataContainer();
 
-        NamespacedKey key = new NamespacedKey(CaptureBioms.INSTANCE, "capturebioms.biomepotion");
+        NamespacedKey key = new NamespacedKey(CaptureBioms.INSTANCE, "capturebiomes.biomepotion");
 
-        // Get the biome from pdt key "capturebioms.biomepotion.biome"
-        var biomeKey = pdc.get(new NamespacedKey(CaptureBioms.INSTANCE, "capturebioms.biomepotion.biome"), PersistentDataType.STRING);
+        // Get the biome from pdt key "capturebiomes.biomepotion.biome"
+        var biomeKey = pdc.get(new NamespacedKey(CaptureBioms.INSTANCE, "capturebiomes.biomepotion.biome"), PersistentDataType.STRING);
         var biomes = RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME);
         var biome = biomes.get(NamespacedKey.fromString(biomeKey));
 
@@ -61,7 +57,7 @@ public class EntityListener implements Listener {
             return;
         }
 
-        // Cancel if not biome potion (key capturebioms.biomepotion)
+        // Cancel if not biome potion (key capturebiomes.biomepotion)
         if (!pdc.has(key)) { return; }
 
         logConsole("A thrown Biome Potion was detected at: " + potionEntity.getLocation(), ConsoleUtils.logType.ADDITIONAL_INFO);

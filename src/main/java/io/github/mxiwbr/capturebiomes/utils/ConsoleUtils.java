@@ -1,7 +1,7 @@
-package io.github.mxiwbr.capturebioms.utils;
+package io.github.mxiwbr.capturebiomes.utils;
 
 
-import io.github.mxiwbr.capturebioms.CaptureBioms;
+import io.github.mxiwbr.capturebiomes.CaptureBioms;
 
 public class ConsoleUtils {
 
