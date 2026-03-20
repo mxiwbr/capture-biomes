@@ -54,6 +54,34 @@ public final class CaptureBiomes extends JavaPlugin {
 
             LiteralArgumentBuilder<CommandSourceStack> rootCommand = Commands.literal("capturebiomes");
 
+            rootCommand.then(Commands.literal("disable")
+                    .executes(ctx -> {
+                        
+                        return 1;
+
+                    }));
+
+            rootCommand.then(Commands.literal("enable")
+                    .executes(ctx -> {
+                        
+                        return 1;
+
+                    }));
+
+            rootCommand.then(Commands.literal("help")
+                    .executes(ctx -> {
+                        
+                        return 1;
+
+                    }));
+
+            rootCommand.then(Commands.literal("settings")
+                    .executes(ctx -> {
+                        
+                        return 1;
+
+                    }));
+            
             rootCommand.then(Commands.literal("givebiomepotion")
                     .executes(ctx -> {
                         
