@@ -1,6 +1,7 @@
 package io.github.mxiwbr.capturebiomes.commands;
 
 import io.github.mxiwbr.capturebiomes.CaptureBiomes;
+import io.github.mxiwbr.capturebiomes.config.Config;
 import io.github.mxiwbr.capturebiomes.factories.ItemFactory;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import net.kyori.adventure.text.Component;
@@ -41,12 +42,16 @@ public class CaptureBiomesCommands {
 
         player.sendMessage(Component.text("=== Capture Biomes Commands ===", NamedTextColor.DARK_AQUA, TextDecoration.BOLD));
         player.sendMessage(Component.text(""));
-        player.sendMessage(Component.text("/capturebiomes enable", NamedTextColor.GREEN)
-                .append(Component.text(" - Enables the plugin", NamedTextColor.WHITE)));
         player.sendMessage(Component.text("/capturebiomes disable", NamedTextColor.RED)
                 .append(Component.text(" - Disables the plugin", NamedTextColor.WHITE)));
+        player.sendMessage(Component.text("/capturebiomes enable", NamedTextColor.GREEN)
+                .append(Component.text(" - Enables the plugin", NamedTextColor.WHITE)));
         player.sendMessage(Component.text("/capturebiomes givebiomepotion <biome> <tier>", NamedTextColor.GOLD)
                 .append(Component.text(" - Gives a biome potion", NamedTextColor.WHITE)));
+        player.sendMessage(Component.text("/capturebiomes help", NamedTextColor.GRAY)
+                .append(Component.text(" - Writes this help page in the chat", NamedTextColor.WHITE)));
+        player.sendMessage(Component.text("/capturebiomes reload", NamedTextColor.BLUE)
+                .append(Component.text(" - Reloads the plugin's config", NamedTextColor.WHITE)));
 
     }
 
@@ -81,6 +86,39 @@ public class CaptureBiomesCommands {
                         .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
 
         log("The plugin was disabled by " + player.getName(), ConsoleUtils.LogType.ADDITIONAL_INFO);
+
+    }
+
+    /**
+     * Reload the config: /capturebiomes reload
+     * @param player
+     */
+    public static void commandReload(Player player) {
+
+        player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                .append(Component.text("Reloading config...", NamedTextColor.GREEN)
+                        .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+
+        log("Reloading config...", ConsoleUtils.LogType.ADDITIONAL_INFO);
+
+        CaptureBiomes.INSTANCE.reloadConfig();
+        CaptureBiomes.CONFIG = new Config();
+
+        if (CaptureBiomes.CONFIG.isLoadFailed()) {
+
+            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                    .append(Component.text("Reload of config failed! Please check the server log for more information.", NamedTextColor.RED)
+                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+
+        }
+        else {
+
+            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                    .append(Component.text("Successfully reloaded the config!", NamedTextColor.GREEN)
+                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+            log("Successfully reloaded the config!", ConsoleUtils.LogType.ADDITIONAL_INFO);
+
+        }
 
     }
 

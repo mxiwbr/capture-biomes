@@ -59,6 +59,17 @@ public class CommandRegistry {
 
                     }));
 
+            // Reloads the plugin's config
+            rootCommand.then(Commands.literal("reload")
+                    .executes(ctx -> {
+
+                        Player player = (Player) ctx.getSource().getSender();
+
+                        CaptureBiomesCommands.commandReload(player);
+                        return 1;
+
+                    }));
+
             // Gives the executing player a biome potion: /capturebiomes givebiomepotion
             rootCommand.then(Commands.literal("givebiomepotion")
                     .then(Commands.argument("biome", word())

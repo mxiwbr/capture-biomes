@@ -30,6 +30,9 @@ public class Config {
     private int intervalTicks;
     private boolean bstatsEnabled;
 
+    // Is set to true if the config couldn't be loaded and the default values where used
+    private boolean loadFailed;
+
     /**
      * Contains all configuration settings as private variables with getters. The constructor gets all values from the config.yml file or uses defaults, if none could be found.
      */
@@ -42,15 +45,24 @@ public class Config {
             // enabled status
             this.pluginEnabled = config.getBoolean("enabled");
 
+            try {
+
+                this.triggerItem = Material.valueOf(config.getString("beacon.trigger_item"));
+
+            } catch (IllegalArgumentException e) {
+
+                throw new  ConfigLoadingException("Invalid trigger item: " + config.getString("beacon.trigger_item"));
+            }
+
             // Required items per tier
-            this.requiredItemCount = new int[] {config.getInt("beacon.required-xp-bottles.tier-1"),
-                    config.getInt("beacon.required-xp-bottles.tier-2"),
-                    config.getInt("beacon.required-xp-bottles.tier-3"),
-                    config.getInt("beacon.required-xp-bottles.tier-4")};
+            this.requiredItemCount = new int[] {config.getInt("beacon.required-item-count.tier-1"),
+                    config.getInt("beacon.required-item-count.tier-2"),
+                    config.getInt("beacon.required-item-count.tier-3"),
+                    config.getInt("beacon.required-item-count.tier-4")};
             // Use default config if amount of required items is more than allowed (max 64)
             for (int itemCount : this.requiredItemCount) {
-                if (itemCount > 64 || itemCount < 1) {
-                    throw new ConfigLoadingException("Error when loading an item of beacon.required-xp-bottles (value: " + itemCount + "). Values must not be more than 64 or less than 1.");
+                if (itemCount > triggerItem.getMaxStackSize() || itemCount < 1) {
+                    throw new ConfigLoadingException("Error when loading an item of beacon.required-item-count (value: " + itemCount + "). Values must not be more than " + triggerItem.getMaxStackSize() + " or less than 1.");
                 }
 
             }
@@ -68,15 +80,6 @@ public class Config {
                 else if (number < 1) {
                     throw new ConfigLoadingException("Error when loading an item of beacon.biome-potions-size (value: " + number + "). Values must not be less than 1.");
                 }
-            }
-
-            try {
-
-                this.triggerItem = Material.valueOf(config.getString("beacon.trigger_item"));
-
-            } catch (IllegalArgumentException e) {
-
-                throw new  ConfigLoadingException("Invalid trigger item: " + config.getString("beacon.trigger_item"));
             }
 
             this.biomePotionsAmount = config.getInt("beacon.biome-potions-amount");
@@ -119,6 +122,8 @@ public class Config {
             }
             this.bstatsEnabled = config.getBoolean("bstats.enabled");
 
+            this.loadFailed = false;
+
         // Set to defaults if config couldn't be loaded
         } catch (Exception e) {
 
@@ -139,6 +144,8 @@ public class Config {
             this.timeoutTicks = 200;
             this.intervalTicks = 2;
             this.bstatsEnabled = true;
+
+            this.loadFailed = true;
 
         }
 

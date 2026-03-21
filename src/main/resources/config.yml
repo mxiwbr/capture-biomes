@@ -7,7 +7,7 @@ enabled: true                         # enable or disable the plugin's basic fun
 
 # --- Beacon ritual items ---
 beacon:
-  required-item-count:                # items required for every beacon level (cannot be more than 64)
+  required-item-count:                # items required for every beacon level (cannot be more than the max stack size of the trigger_item)
                                       # Have to be > 0
     tier-1: 16
     tier-2: 32
