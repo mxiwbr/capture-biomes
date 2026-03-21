@@ -98,6 +98,22 @@ public class CommandRegistry {
 
             );
 
+            rootCommand.then(Commands.literal("reset")
+                    .executes(ctx -> {
+
+                        CommandActions.commandResetConfig((Player) ctx.getSource().getSender(), false);
+                        return 1;
+                    })
+
+                    .then(Commands.literal("confirm")
+                            .executes(ctx -> {
+
+                                CommandActions.commandResetConfig((Player) ctx.getSource().getSender(), true);
+                                return 1;
+                            })
+                    )
+            );
+
             LiteralArgumentBuilder<CommandSourceStack> biomeCommand = Commands.literal("biome")
                     .executes(ctx -> {
 

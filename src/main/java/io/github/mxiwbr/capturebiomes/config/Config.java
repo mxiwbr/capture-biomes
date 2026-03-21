@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import static io.github.mxiwbr.capturebiomes.CaptureBiomes.CONFIG;
 import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.log;
 
 @Getter
@@ -69,7 +70,7 @@ public class Config {
 
             }
 
-            // Amount of biome potions to get per tier
+            // Size of biome potions per tier
             this.biomePotionSize = new int[]  {config.getInt("beacon.biome-potions-size.tier-1"),
                     config.getInt("beacon.biome-potions-size.tier-2"),
                     config.getInt("beacon.biome-potions-size.tier-3"),
@@ -162,6 +163,56 @@ public class Config {
             this.loadFailed = true;
 
         }
+
+    }
+
+    /**
+     * Resets the config.yml to default and automatically applies the new values
+     */
+    public static void resetConfigFile() {
+
+        CaptureBiomes.CONFIG.pluginEnabled = true;
+        // Required items per tier
+        CaptureBiomes.CONFIG.requiredItemCount = new int[] { 16, 32, 48, 64 };
+        // Size of biome potions per tier
+        CaptureBiomes.CONFIG.biomePotionSize = new int[] { 4, 8, 16, 32 };
+        CaptureBiomes.CONFIG.triggerItem = Material.EXPERIENCE_BOTTLE;
+        CaptureBiomes.CONFIG.biomePotionsAmount = 1;
+        CaptureBiomes.CONFIG.enablePotionCooldown = true;
+        CaptureBiomes.CONFIG.potionCooldown = 15;
+        CaptureBiomes.CONFIG.enableMushroomFieldsBiome = false;
+        CaptureBiomes.CONFIG.enableDeepDarkBiome = false;
+        CaptureBiomes.CONFIG.enableConsoleLogging = true;
+        CaptureBiomes.CONFIG.enableAdditionalConsoleLogging = false;
+        CaptureBiomes.CONFIG.timeoutTicks = 200;
+        CaptureBiomes.CONFIG.intervalTicks = 2;
+        CaptureBiomes.CONFIG.bstatsEnabled = true;
+        CaptureBiomes.CONFIG.loadFailed = false;
+
+        CaptureBiomes.INSTANCE.getConfig().set("enabled", true);
+        // Required items per tier
+        CaptureBiomes.INSTANCE.getConfig().set("beacon.required-item-count.tier-1", 16);
+        CaptureBiomes.INSTANCE.getConfig().set("beacon.required-item-count.tier-2", 32);
+        CaptureBiomes.INSTANCE.getConfig().set("beacon.required-item-count.tier-3", 48);
+        CaptureBiomes.INSTANCE.getConfig().set("beacon.required-item-count.tier-4", 64);
+        // Size of biome potions per tier
+        CaptureBiomes.INSTANCE.getConfig().set("beacon.biome-potions-size.tier-1", 4);
+        CaptureBiomes.INSTANCE.getConfig().set("beacon.biome-potions-size.tier-2", 8);
+        CaptureBiomes.INSTANCE.getConfig().set("beacon.biome-potions-size.tier-3", 16);
+        CaptureBiomes.INSTANCE.getConfig().set("beacon.biome-potions-size.tier-4", 32);
+        CaptureBiomes.INSTANCE.getConfig().set("beacon.trigger_item", "EXPERIENCE_BOTTLE");
+        CaptureBiomes.INSTANCE.getConfig().set("beacon.biome-potions-amount", 1);
+        CaptureBiomes.INSTANCE.getConfig().set("potion-cooldown.enabled", true);
+        CaptureBiomes.INSTANCE.getConfig().set("potion-cooldown.length", 15);
+        CaptureBiomes.INSTANCE.getConfig().set("biomes.enable-mushroom_fields", false);
+        CaptureBiomes.INSTANCE.getConfig().set("biomes.enable-deep_dark", false);
+        CaptureBiomes.INSTANCE.getConfig().set("console.enable-logging", true);
+        CaptureBiomes.INSTANCE.getConfig().set("console.enable-additional-logging", false);
+        CaptureBiomes.INSTANCE.getConfig().set("item-check.timeout-ticks", 200);
+        CaptureBiomes.INSTANCE.getConfig().set("item-check.interval-ticks", 2);
+        CaptureBiomes.INSTANCE.getConfig().set("bstats.enabled", true);
+
+        CaptureBiomes.INSTANCE.saveConfig();
 
     }
 

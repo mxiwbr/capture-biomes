@@ -152,4 +152,21 @@ public class CommandActions {
 
     }
 
+    public static void commandResetConfig(Player player, boolean confirmed) {
+
+        if (!confirmed) {
+            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                    .append(Component.text("Resetting the config will reset all values in the config.yml! Use ", NamedTextColor.RED)
+                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE))
+                                    .append(Component.text("/reset confirm ", NamedTextColor.YELLOW)
+                                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE))
+                                                    .append(Component.text("to confirm your decision.", NamedTextColor.RED)
+                                                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+        }
+        else {
+            Config.resetConfigFile();
+        }
+
+    }
+
 }
