@@ -137,66 +137,28 @@ bstats:
 ```
 
 ## Supported Biomes and Dimensions
-This plugin supports most **overworld biomes**.
-Nether, End and Cave biomes as well as custom biomes and dimensions are currently not supported and will be ignored.
-- 🔵 **Cold:**  
-  `Deep Cold Ocean`  
-  `Cold Ocean`  
-  `Snowy Tundra`  
-  `Snowy Plains`  
-  `Snowy Slopes`  
-  `Snowy Beach`  
-  `Snowy Taiga`  
-  `Ice Spikes`  
-  `Frozen Peaks`  
-  `Frozen Ocean`  
-  `Frozen River`
-  `Deep Frozen Ocean`
-- 🟡 **Hot:**  
-  `Desert`  
-  `Savanna`  
-  `Savanna Plateau`  
-  `Badlands`  
-  `Eroded Badlands`  
-  `Wooded Badlands`  
-  `Windswept Savanna`  
-  `Beach`
-- 🟢 **Forest / Plains:**  
-  `Forest`  
-  `Birch Forest`  
-  `Dark Forest`  
-  `Flower Forest`  
-  `Old Growth Birch Forest`  
-  `Old Growth Pine Taiga`  
-  `Old Growth Spruce Taiga`  
-  `Windswept Forest`  
-  `Grove`  
-  `Taiga`  
-  `Meadow`  
-  `Cherry Grove`  
-  `Sunflower Plains`  
-  `Plains`  
-  `Pale Garden`
-- 🟢 **Jungle:**  
-  `Jungle`  
-  `Bamboo Jungle`  
-  `Sparse Jungle`
-- 🔵 **Oceans / Rivers:**  
-  `Ocean`  
-  `Deep Ocean`  
-  `Warm Ocean`  
-  `Lukewarm Ocean`  
-  `Deep Lukewarm Ocean`  
-  `River`
-- 🟤 **Swamps:**  
-  `Swamp`  
-  `Mangrove Swamp`
-- ⚪ **Mountains / Stony:**  
-  `Stony Peaks`  
-  `Stony Shore`  
-  `Jagged Peaks`  
-  `Windswept Gravelly Hills`  
-  `Windswept Hills`
+This plugin supports most **overworld biomes** (listed below).  
+Nether and End biomes as well as custom biomes and dimensions are currently not supported and will be ignored.
+#### 🔵 Cold
+`Deep Cold Ocean`, `Cold Ocean`, `Snowy Tundra`, `Snowy Plains`, `Snowy Slopes`, `Snowy Beach`, `Snowy Taiga`, `Ice Spikes`, `Frozen Peaks`, `Frozen Ocean`, `Frozen River`, `Deep Frozen Ocean`
+
+#### 🟡 Hot
+`Desert`, `Savanna`, `Savanna Plateau`, `Badlands`, `Eroded Badlands`, `Wooded Badlands`, `Windswept Savanna`, `Beach`
+
+#### 🟢 Forest / Plains
+`Forest`, `Birch Forest`, `Dark Forest`, `Flower Forest`, `Old Growth Birch Forest`, `Old Growth Pine Taiga`, `Old Growth Spruce Taiga`, `Windswept Forest`, `Grove`, `Taiga`, `Meadow`, `Cherry Grove`, `Sunflower Plains`, `Plains`, `Pale Garden`
+
+#### 🟢 Jungle
+`Jungle`, `Bamboo Jungle`, `Sparse Jungle`
+
+#### 🔵 Oceans / Rivers
+`Ocean`, `Deep Ocean`, `Warm Ocean`, `Lukewarm Ocean`, `Deep Lukewarm Ocean`, `River`
+
+#### 🟤 Swamps
+`Swamp`, `Mangrove Swamp`
+
+#### ⚪ Mountains / Stony
+`Stony Peaks`, `Stony Shore`, `Jagged Peaks`, `Windswept Gravelly Hills`, `Windswept Hills`
 
 ## Help
 If you need any help, please feel free to open an issue: [Open an issue](https://github.com/mxiwbr/capture-biomes/issues)
