@@ -53,14 +53,14 @@ When thrown, the potion affects a square of `size` × `size` blocks, `size` bein
 
 ## Commands
 
-| Command | Description | Permission |
-|---------|-------------|------------|
-| `/capturebiomes disable` | Disables the plugin. | OP |
-| `/capturebiomes enable` | Enables the plugin. | OP |
-| `/capturebiomes givebiomepotion <biome> <tier>` | Gives a Biome Potion of the specified biome and tier. | OP |
-| `/capturebiomes reload` | Reloads the plugin’s configuration (`config.yml`). | OP |
-| `/capturebiomes help` | Shows this command overview in the ingame chat. | OP |
-| `/biome` | Shows the biome you are currently standing in. | Everyone |
+| Command | Description                                                                                                    | Permission |
+|---------|----------------------------------------------------------------------------------------------------------------|------------|
+| `/capturebiomes disable` | Disables the plugin.                                                                                           | OP |
+| `/capturebiomes enable` | Enables the plugin.                                                                                            | OP |
+| `/capturebiomes givebiomepotion <biome> <tier>` | Gives a Biome Potion of the specified biome and tier.<br>**Example:** `/capturebiomes givebiomepotion snowy_taiga 3` | OP |
+| `/capturebiomes reload` | Reloads the plugin’s configuration (`config.yml`).                                                             | OP |
+| `/capturebiomes help` | Shows this command overview in the ingame chat.                                                                | OP |
+| `/biome` | Shows the biome you are currently standing in.                                                                 | Everyone |
 
 ## Supported Versions
 - PaperMC on Minecraft Version 1.21.11
