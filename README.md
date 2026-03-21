@@ -9,7 +9,9 @@
 [![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen)](https://opensource.org/)
 [![Modrinth](https://img.shields.io/badge/Available%20on-Modrinth-00AF5C?logo=modrinth)](https://modrinth.com/project/capture-biomes)
 
-A PaperMC plugin that lets players capture a biome in a bottle and release it elsewhere.
+Ever dreamed of bringing a snowy tundra to your sunny desert world? Or maybe turn your forest into a swampy wonderland?  
+With **Capture Biomes**, you can bottle up any biome and unleash it anywhere –
+reshape your own Minecraft world exactly the way you want!
 
 ## Features
 - **Capture Biomes** allows you to capture a biome in a bottle as a **Biome Potion** by throwing XP Bottles on a **Beacon** and release it elsewhere
@@ -51,6 +53,11 @@ When thrown, the potion affects a square of `size` × `size` blocks, `size` bein
 Edit the `config.yml` in the plugin's folder to adapt it to your preferences:
 ```
 # Capture Biomes Plugin Configuration
+
+enabled: true                         # enable or disable the plugin's basic functionalities
+                                      # commands as well as update services will still work
+                                      # boolean (true / false)
+                                      # can also be changed in game via /capturebiomes enable or /capturebiomes disable
 
 # --- Beacon ritual items ---
 beacon:
@@ -98,6 +105,12 @@ console:
 item-check:
   timeout-ticks: 200                  # How long the plugin checks for each item being on ground in ticks (20 ticks = 1 second)
   interval-ticks: 2                   # Interval between each check in ticks (20 ticks = 1 second)
+
+# --- bStats ---
+bstats:
+  enabled: true                       # default: true
+                                      # enables / disables sending anonymous data like amount of servers using the plugin to bStats
+                                      # see README.md section "bStats" for more information
 ```
 
 ## Supported Biomes and Dimensions
@@ -162,6 +175,11 @@ Nether, End and Cave biomes as well as custom biomes and dimensions are currentl
 
 ## Help
 If you need any help, please feel free to open an issue: [Open an issue](https://github.com/mxiwbr/capture-biomes/issues)
+
+## bStats
+
+This plugin uses [bStats](https://bstats.org/) to collect **anonymous statistics** like player counts and server versions.  
+All data collected is **anonymous and secure**, helping to improve the plugin.
 
 ## License
 This plugin is licensed under the **GNU General Public License v3**.  

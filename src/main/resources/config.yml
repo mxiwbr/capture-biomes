@@ -51,3 +51,9 @@ console:
 item-check:
   timeout-ticks: 200                  # How long the plugin checks for each item being on ground in ticks (20 ticks = 1 second)
   interval-ticks: 2                   # Interval between each check in ticks (20 ticks = 1 second)
+
+# --- bStats ---
+bstats:
+  enabled: true                       # default: true
+                                      # enables / disables sending anonymous data like amount of servers using the plugin to bStats
+                                      # see README.md section "bStats" for more information

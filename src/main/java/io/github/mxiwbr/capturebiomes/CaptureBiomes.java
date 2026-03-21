@@ -25,9 +25,6 @@ public final class CaptureBiomes extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        final int bStatsPluginId = 30340;
-        Metrics bStatsMetrics = new Metrics(this, bStatsPluginId);
-
         // Global plugin instance object
         INSTANCE = this;
 
@@ -43,6 +40,13 @@ public final class CaptureBiomes extends JavaPlugin {
         // Set logger object to log from other classes
         LOGGER = getLogger();
         log("Enabled!", ConsoleUtils.LogType.INFO);
+
+        // bStats - only if enabled in config (default)
+        if (CONFIG.isBstatsEnabled()) {
+
+            final int bStatsPluginId = 30340;
+            Metrics bStatsMetrics = new Metrics(this, bStatsPluginId);
+        }
 
         newVersionAvailable = UpdateService.checkForUpdates();
 
