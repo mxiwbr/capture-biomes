@@ -45,8 +45,17 @@ public final class CaptureBiomes extends JavaPlugin {
         // bStats - only if enabled in config (default)
         if (CONFIG.isBstatsEnabled()) {
 
-            final int bStatsPluginId = 30340;
-            Metrics bStatsMetrics = new Metrics(this, bStatsPluginId);
+            try {
+
+                final int bStatsPluginId = 30340;
+                Metrics bStatsMetrics = new Metrics(this, bStatsPluginId);
+
+            }
+            catch (Exception e) {
+
+                log("An error occurred while trying to establish bStats connection: " + e.getMessage(), ConsoleUtils.LogType.WARNING);
+
+            }
         }
 
         newVersionAvailable = UpdateService.checkForUpdates();

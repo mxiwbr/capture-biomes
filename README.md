@@ -1,7 +1,7 @@
 # Capture Biomes
 
 [![Java](https://img.shields.io/badge/Java-21-brightgreen)](https://www.java.com/)
-[![Minecraft](https://img.shields.io/badge/Minecraft_Java_Edition-1.21.5_to_26.1.1-blue)](https://www.minecraft.net/de-de/article/minecraft-java-edition-26-1-1)
+[![Minecraft](https://img.shields.io/badge/Minecraft_Java_Edition-1.21.5_to_26.1.x-blue)](https://www.minecraft.net/de-de/article/minecraft-java-edition-26-1-2)
 [![API](https://img.shields.io/badge/API-PaperMC-white)](https://papermc.io/)
 [![bStats](https://img.shields.io/badge/bStats-Active-blue)](https://bstats.org/plugin/bukkit/CaptureBiomes/30340)
 [![Plugin](https://img.shields.io/badge/Type-Plugin-yellow)](#)

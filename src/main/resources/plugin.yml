@@ -3,6 +3,6 @@ version: 1.0.2
 main: io.github.mxiwbr.capturebiomes.CaptureBiomes
 description: A PaperMC plugin that lets players capture a biome in a bottle and release it elsewhere.
 author: mxiwbr
-website: https://github.com/mxiwbr/capture-bioms
+website: https://github.com/mxiwbr/capture-biomes
 # Plugin works in 1.21.5 and newer versions
 api-version: '1.21.5'
