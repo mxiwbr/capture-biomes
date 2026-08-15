@@ -79,11 +79,22 @@ public class BiomeUtils {
      */
     public static void fillBiome(World world, BoundingBox box, Biome biome) {
 
-        for (int x = (int) box.getMinX(); x <= box.getMaxX(); x++) {
+        if (world == null || box == null || biome == null) {
+            return;
+        }
 
-            for (int z = (int) box.getMinZ(); z <= box.getMaxZ(); z++) {
+        int minX = (int) Math.floor(box.getMinX());
+        int maxX = (int) Math.floor(box.getMaxX());
+        int minZ = (int) Math.floor(box.getMinZ());
+        int maxZ = (int) Math.floor(box.getMaxZ());
+        int minY = Math.max((int) Math.floor(box.getMinY()), world.getMinHeight());
+        int maxY = Math.min((int) Math.floor(box.getMaxY()), world.getMaxHeight() - 1);
 
-                for (int y = (int) box.getMinY(); y <= box.getMaxY(); y++) {
+        for (int x = minX; x <= maxX; x++) {
+
+            for (int z = minZ; z <= maxZ; z++) {
+
+                for (int y = minY; y <= maxY; y++) {
 
                     world.setBiome(x, y, z, biome);
 
