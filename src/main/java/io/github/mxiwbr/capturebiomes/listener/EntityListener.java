@@ -11,6 +11,7 @@ import io.papermc.paper.registry.RegistryKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Color;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.entity.AreaEffectCloud;
@@ -49,29 +50,47 @@ public class EntityListener implements Listener {
         // The areaEffectCloud that was spawned by splashing the potion
         AreaEffectCloud areaEffectCloud = event.getAreaEffectCloud();
 
-        PersistentDataContainer pdc = potionItem.getItemMeta().getPersistentDataContainer();
+        if (potionItem == null || !potionItem.hasItemMeta()) { return; }
 
+        PersistentDataContainer pdc = potionItem.getItemMeta().getPersistentDataContainer();
         NamespacedKey key = new NamespacedKey(CaptureBiomes.INSTANCE, "capturebiomes.biomepotion");
 
-        // Get the biome from pdt key "capturebiomes.biomepotion.biome"
-        var biomeKey = pdc.get(new NamespacedKey(CaptureBiomes.INSTANCE, "capturebiomes.biomepotion.biome"), PersistentDataType.STRING);
-        var biomes = RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME);
-        var biome = biomes.get(NamespacedKey.fromString(biomeKey));
+        // Cancel if not biome potion (key capturebiomes.biomepotion)
+        if (!pdc.has(key, PersistentDataType.INTEGER)) { return; }
+
+        // the tier (level) of the potion (1 - 4)
+        final Integer tier = pdc.get(key, PersistentDataType.INTEGER);
+        if (tier == null) { return; }
 
         // Cancel and delete areaEffectCloud if not in overworld
-        if (world.getEnvironment() != World.Environment.NORMAL) {
+        if (world == null || world.getEnvironment() != World.Environment.NORMAL) {
 
-            log("Creation of biome at " + potionEntity.getLocation().getWorld() + " failed: the biome / dimension is either not supported or could not be found.", ConsoleUtils.LogType.WARNING);
+            log("Creation of biome at " + (world != null ? world.getName() : "unknown") + " failed: the biome / dimension is either not supported or could not be found.", ConsoleUtils.LogType.WARNING);
             log("If you think that this is a bug, please create an issue: https://github.com/mxiwbr/capture-bioms/issues", ConsoleUtils.LogType.WARNING);
             areaEffectCloud.remove();
             return;
         }
 
-        // Cancel if not biome potion (key capturebiomes.biomepotion)
-        if (!pdc.has(key)) { return; }
+        // Get the biome from pdt key "capturebiomes.biomepotion.biome"
+        var biomeKey = pdc.get(new NamespacedKey(CaptureBiomes.INSTANCE, "capturebiomes.biomepotion.biome"), PersistentDataType.STRING);
+        if (biomeKey == null) {
+            areaEffectCloud.remove();
+            return;
+        }
 
-        // the tier (level) of the potion (1 - 4)
-        final int tier = pdc.get(key, PersistentDataType.INTEGER);
+        NamespacedKey namespacedKey = NamespacedKey.fromString(biomeKey);
+        if (namespacedKey == null) {
+            areaEffectCloud.remove();
+            return;
+        }
+
+        var biomes = RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME);
+        var biome = biomes.get(namespacedKey);
+        if (biome == null) {
+            areaEffectCloud.remove();
+            return;
+        }
+
         areaEffectCloud.setRadius(0);
 
         final int maxHeight = world.getMaxHeight();
@@ -88,9 +107,17 @@ public class EntityListener implements Listener {
                 size,
                 Math.min(nextBlockY + (CONFIG.getBiomePotionYOffsetMultiplier() * size), maxHeight));
 
+        Color particleColor = BiomeUtils.getBiomeColor(biomeKey);
+        if (particleColor == null && potionEntity.getPotionMeta() != null && potionEntity.getPotionMeta().getColor() != null) {
+            particleColor = potionEntity.getPotionMeta().getColor();
+        }
+        if (particleColor == null) {
+            particleColor = Color.WHITE;
+        }
+
         // particle effect up to max world height or next block on y coordinate above the block
         ParticleFactory.createSquareRisingEdges(potionEntity.getLocation(),
-                potionEntity.getPotionMeta().getColor(),
+                particleColor,
                 size,
                 Math.min(nextBlockY + (CONFIG.getBiomePotionYOffsetMultiplier() * size), maxHeight));
 
@@ -100,7 +127,7 @@ public class EntityListener implements Listener {
         // Refresh affected chunks for players to see the biome change instantly
         BlockUtils.refreshChunksFromBoundingBox(boundingBox, world);
 
-        log("A biome of type " + biome.getKey().getKey() + " with size " + CONFIG.getBiomePotionSize()[tier - 1] + " x " + CONFIG.getBiomePotionSize()[tier - 1] + " was created at center " + potionEntity.getLocation(), ConsoleUtils.LogType.ADDITIONAL_INFO);
+        log("A biome of type " + biome.getKey().getKey() + " with size " + size + " x " + size + " was created at center " + potionEntity.getLocation(), ConsoleUtils.LogType.ADDITIONAL_INFO);
 
     }
 
