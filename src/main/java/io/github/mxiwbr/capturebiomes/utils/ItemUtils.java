@@ -20,8 +20,9 @@ public class ItemUtils {
         if (itemStack.getAmount() > amount) {
 
             itemStack.setAmount(itemStack.getAmount() - amount);
+            item.setItemStack(itemStack);
         }
-        else if (itemStack.getAmount() == amount) {
+        else if (itemStack.getAmount() <= amount) {
 
             item.remove();
         }
