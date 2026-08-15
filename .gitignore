@@ -5,6 +5,9 @@ build/
 !**/src/test/**/build/
 .kotlin
 
+### Minecraft Testing Server ###
+server/
+
 ### IntelliJ IDEA ###
 .idea/
 *.iws
