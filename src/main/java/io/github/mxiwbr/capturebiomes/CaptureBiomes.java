@@ -19,7 +19,7 @@ public final class CaptureBiomes extends JavaPlugin {
     public static Logger LOGGER;
     public static CaptureBiomes INSTANCE;
     public static Config CONFIG;
-    public static Boolean newVersionAvailable;
+    public static boolean newVersionAvailable = false;
 
     // Called when the plugin is enabled
     @Override
