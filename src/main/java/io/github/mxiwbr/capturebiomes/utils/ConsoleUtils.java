@@ -1,6 +1,5 @@
 package io.github.mxiwbr.capturebiomes.utils;
 
-
 import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 
 public class ConsoleUtils {
@@ -48,6 +47,15 @@ public class ConsoleUtils {
             }
 
         }
+
+    }
+
+    /**
+     * Sends the "If you think that this is a bug, please create an issue" message in the server console
+     */
+    public static void logCreateIssueMessage() {
+
+        log("If you think that this is a bug, please create an issue: https://github.com/mxiwbr/capture-biomes/issues", ConsoleUtils.LogType.WARNING);
 
     }
 

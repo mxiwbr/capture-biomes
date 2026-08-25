@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.log;
+import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.logCreateIssueMessage;
 
 public class BeaconRitualService {
 
@@ -33,7 +34,7 @@ public class BeaconRitualService {
         if (world == null || world.getEnvironment() != World.Environment.NORMAL) {
 
             log("Creation of biome bottle at " + location + " failed: the dimension is either not supported or not found.", ConsoleUtils.LogType.WARNING);
-            log("If you think that this is a bug, please create an issue: https://github.com/mxiwbr/capture-bioms/issues", ConsoleUtils.LogType.WARNING);
+            logCreateIssueMessage();
             return;
         }
 
@@ -44,7 +45,7 @@ public class BeaconRitualService {
         if (BiomeUtils.getBiomeColor(biome.getKey().getKey()) == null) {
 
             log("Creation of biome bottle at " + location + " failed: the biome is either not supported or could not be found.", ConsoleUtils.LogType.WARNING);
-            log("If you think that this is a bug, please create an issue: https://github.com/mxiwbr/capture-bioms/issues", ConsoleUtils.LogType.WARNING);
+            logCreateIssueMessage();
             return;
 
         }
@@ -70,8 +71,11 @@ public class BeaconRitualService {
             Vector direction = itemEntity.getLocation().toVector()
                     .subtract(center.toVector());
 
+            // fallback vector if length is near two
             if (direction.lengthSquared() < 1e-6) {
+
                 direction = new Vector(Math.random() - 0.5, 0, Math.random() - 0.5);
+
             }
 
             direction.normalize();
@@ -86,7 +90,7 @@ public class BeaconRitualService {
         if (potion == null) {
 
             log("Creation of biome bottle at " + location + " failed: the biome is either not supported or could not be found.", ConsoleUtils.LogType.WARNING);
-            log("If you think that this is a bug, please create an issue: https://github.com/mxiwbr/capture-bioms/issues", ConsoleUtils.LogType.WARNING);
+            logCreateIssueMessage();
             return;
         }
 

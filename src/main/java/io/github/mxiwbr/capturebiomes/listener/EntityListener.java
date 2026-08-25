@@ -8,9 +8,6 @@ import io.github.mxiwbr.capturebiomes.utils.BlockUtils;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Color;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
@@ -28,6 +25,7 @@ import org.bukkit.util.BoundingBox;
 
 import static io.github.mxiwbr.capturebiomes.CaptureBiomes.CONFIG;
 import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.log;
+import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.logCreateIssueMessage;
 
 /**
  * Listener class for entity events
@@ -66,29 +64,38 @@ public class EntityListener implements Listener {
         if (world == null || world.getEnvironment() != World.Environment.NORMAL) {
 
             log("Creation of biome at " + (world != null ? world.getName() : "unknown") + " failed: the biome / dimension is either not supported or could not be found.", ConsoleUtils.LogType.WARNING);
-            log("If you think that this is a bug, please create an issue: https://github.com/mxiwbr/capture-bioms/issues", ConsoleUtils.LogType.WARNING);
+            logCreateIssueMessage();
+
             areaEffectCloud.remove();
+
             return;
+
         }
 
         // Get the biome from pdt key "capturebiomes.biomepotion.biome"
         var biomeKey = pdc.get(new NamespacedKey(CaptureBiomes.INSTANCE, "capturebiomes.biomepotion.biome"), PersistentDataType.STRING);
         if (biomeKey == null) {
+
             areaEffectCloud.remove();
             return;
+
         }
 
         NamespacedKey namespacedKey = NamespacedKey.fromString(biomeKey);
         if (namespacedKey == null) {
+
             areaEffectCloud.remove();
             return;
+
         }
 
         var biomes = RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME);
         var biome = biomes.get(namespacedKey);
         if (biome == null) {
+
             areaEffectCloud.remove();
             return;
+
         }
 
         areaEffectCloud.setRadius(0);
@@ -109,10 +116,15 @@ public class EntityListener implements Listener {
 
         Color particleColor = BiomeUtils.getBiomeColor(biomeKey);
         if (particleColor == null && potionEntity.getPotionMeta() != null && potionEntity.getPotionMeta().getColor() != null) {
+
             particleColor = potionEntity.getPotionMeta().getColor();
+
         }
+
         if (particleColor == null) {
+
             particleColor = Color.WHITE;
+
         }
 
         // particle effect up to max world height or next block on y coordinate above the block

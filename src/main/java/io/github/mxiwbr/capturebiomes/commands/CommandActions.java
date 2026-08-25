@@ -33,7 +33,9 @@ public class CommandActions {
     public static void commandGivebiomepotion(Biome biome, int tier, Player player) {
 
         try {
+
             player.getInventory().addItem(ItemFactory.createBiomePotion(biome, tier));
+
         }
         catch (Exception e) {
 

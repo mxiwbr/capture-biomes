@@ -17,6 +17,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.log;
+import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.logCreateIssueMessage;
 
 public class UpdateService {
 
@@ -51,7 +52,12 @@ public class UpdateService {
 
             log("An error occurred while checking for updates:", ConsoleUtils.LogType.WARNING);
             log(e.getClass().getSimpleName() + " - " + e.getMessage(), ConsoleUtils.LogType.WARNING);
-            if (CaptureBiomes.CONFIG.isEnableConsoleLogging()) { e.printStackTrace(); }
+            if (CaptureBiomes.CONFIG.isEnableConsoleLogging()) {
+
+                e.printStackTrace();
+
+            }
+            logCreateIssueMessage();
         }
 
         return false;
@@ -74,17 +80,24 @@ public class UpdateService {
         httpClient.close();
 
         if (httpResponse.statusCode() != 200) {
-            throw new IOException("Modrinth API returned status code: " + httpResponse.statusCode());
+
+            throw new IOException("Modrinth API returned status code " + httpResponse.statusCode() + ".");
+
         }
 
         String jsonString = httpResponse.body();
         var jsonElement = JsonParser.parseString(jsonString);
         if (!jsonElement.isJsonArray()) {
-            throw new IOException("Modrinth API response is not a JSON array");
+
+            throw new IOException("Modrinth API response is not a JSON array.");
+
         }
+
         JsonArray jsonArray = jsonElement.getAsJsonArray();
         if (jsonArray.isEmpty()) {
-            throw new IOException("Modrinth API returned an empty version array");
+
+            throw new IOException("Modrinth API returned an empty version array.");
+
         }
 
         JsonObject latestVersion = jsonArray.get(0).getAsJsonObject();

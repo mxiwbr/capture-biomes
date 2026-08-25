@@ -1,6 +1,5 @@
 package io.github.mxiwbr.capturebiomes.utils;
 
-import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;

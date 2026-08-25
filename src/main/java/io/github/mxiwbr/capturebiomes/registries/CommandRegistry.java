@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 import io.github.mxiwbr.capturebiomes.utils.BiomeUtils;
+import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
@@ -12,12 +13,15 @@ import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import io.github.mxiwbr.capturebiomes.commands.*;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
+import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.log;
 
 public class CommandRegistry {
 
@@ -88,7 +92,12 @@ public class CommandRegistry {
                                     Biome biome = biomeNamespacedKey != null ? biomeRegistry.get(biomeNamespacedKey) : null;
 
                                     if (biome == null) {
-                                        player.sendMessage(Component.text("Biome '" + biomeName + "' could not be found in the registry!", NamedTextColor.RED));
+
+                                        log("Failed to give biome potion to " + player.getName() + ": BiomeBiome '" + biomeName + "' either invalid or not supported", ConsoleUtils.LogType.ADDITIONAL_INFO);
+                                        player.sendMessage(Component.text("[CaptureBiomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                                                .append(Component.text("Biome '" + biomeName + "' either invalid or not supported!", NamedTextColor.RED)
+                                                        .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+
                                         return 0;
                                     }
 
