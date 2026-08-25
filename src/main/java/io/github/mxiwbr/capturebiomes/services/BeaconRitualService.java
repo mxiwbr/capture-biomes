@@ -67,10 +67,14 @@ public class BeaconRitualService {
 
             if (!(entity instanceof Item itemEntity)) continue;
 
-            Vector direction = center.toVector()
-                    .subtract(itemEntity.getLocation().toVector())
-                    .normalize();
+            Vector direction = itemEntity.getLocation().toVector()
+                    .subtract(center.toVector());
 
+            if (direction.lengthSquared() < 1e-6) {
+                direction = new Vector(Math.random() - 0.5, 0, Math.random() - 0.5);
+            }
+
+            direction.normalize();
             direction.multiply(0.7);
             direction.setY(0.6);
 

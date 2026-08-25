@@ -83,10 +83,16 @@ public class CommandRegistry {
                                         return 0;
                                     }
 
-                                    CommandActions.commandGivebiomepotion(RegistryAccess
-                                            .registryAccess()
-                                            .getRegistry(RegistryKey.BIOME)
-                                            .get(NamespacedKey.fromString(biomeName)), IntegerArgumentType.getInteger(ctx, "tier"), player);
+                                    NamespacedKey biomeNamespacedKey = NamespacedKey.fromString(biomeName);
+                                    var biomeRegistry = RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME);
+                                    Biome biome = biomeNamespacedKey != null ? biomeRegistry.get(biomeNamespacedKey) : null;
+
+                                    if (biome == null) {
+                                        player.sendMessage(Component.text("Biome '" + biomeName + "' could not be found in the registry!", NamedTextColor.RED));
+                                        return 0;
+                                    }
+
+                                    CommandActions.commandGivebiomepotion(biome, IntegerArgumentType.getInteger(ctx, "tier"), player);
 
                                     return 1;
 

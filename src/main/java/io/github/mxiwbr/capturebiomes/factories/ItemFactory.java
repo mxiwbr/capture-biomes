@@ -33,6 +33,8 @@ public class ItemFactory {
      */
     public static ItemStack createBiomePotion(Biome biome, int tier) {
 
+        if (biome == null) { return null; }
+
         // Create potion ItemStack as lingering potion
         ItemStack potion = new ItemStack(Material.LINGERING_POTION);
         // create meta for the item

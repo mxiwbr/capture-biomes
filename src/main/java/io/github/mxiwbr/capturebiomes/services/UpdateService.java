@@ -20,6 +20,8 @@ import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.log;
 
 public class UpdateService {
 
+    private static String cachedLatestVersion;
+
     /**
      * Scans the GitHub page for new releases
      * @return true or false whether a new update is available
@@ -33,6 +35,7 @@ public class UpdateService {
         try {
 
             String latestPluginVersion = getLatestVersion();
+            cachedLatestVersion = latestPluginVersion;
 
             // Check if new version is available and log it
             if (!pluginVersion.equals(latestPluginVersion)) {
@@ -70,10 +73,21 @@ public class UpdateService {
         HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         httpClient.close();
 
-        String jsonString = httpResponse.body();
-        JsonArray jsonObject = JsonParser.parseString(jsonString).getAsJsonArray();
+        if (httpResponse.statusCode() != 200) {
+            throw new IOException("Modrinth API returned status code: " + httpResponse.statusCode());
+        }
 
-        JsonObject latestVersion = jsonObject.get(0).getAsJsonObject();
+        String jsonString = httpResponse.body();
+        var jsonElement = JsonParser.parseString(jsonString);
+        if (!jsonElement.isJsonArray()) {
+            throw new IOException("Modrinth API response is not a JSON array");
+        }
+        JsonArray jsonArray = jsonElement.getAsJsonArray();
+        if (jsonArray.isEmpty()) {
+            throw new IOException("Modrinth API returned an empty version array");
+        }
+
+        JsonObject latestVersion = jsonArray.get(0).getAsJsonObject();
 
         return latestVersion.get("version_number").getAsString();
 
@@ -87,9 +101,11 @@ public class UpdateService {
 
         try {
 
+            String version = cachedLatestVersion != null ? cachedLatestVersion : getLatestVersion();
+
             player.sendMessage(Component.text("[CaptureBiomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
                     .append(Component.text("There is a newer plugin version available: "
-                                    + UpdateService.getLatestVersion()
+                                    + version
                                     + ", you're on: "
                                     + CaptureBiomes.INSTANCE.getPluginMeta().getVersion(), NamedTextColor.GREEN)
                             .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
