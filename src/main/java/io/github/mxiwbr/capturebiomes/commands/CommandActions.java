@@ -3,6 +3,7 @@ package io.github.mxiwbr.capturebiomes.commands;
 import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 import io.github.mxiwbr.capturebiomes.config.Config;
 import io.github.mxiwbr.capturebiomes.factories.ItemFactory;
+import io.github.mxiwbr.capturebiomes.services.UpdateService;
 import io.github.mxiwbr.capturebiomes.utils.BiomeUtils;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import net.kyori.adventure.text.Component;
@@ -58,6 +59,8 @@ public class CommandActions {
                 .append(Component.text(" - Disables the plugin", NamedTextColor.WHITE)));
         player.sendMessage(Component.text("/capturebiomes enable", NamedTextColor.GREEN)
                 .append(Component.text(" - Enables the plugin", NamedTextColor.WHITE)));
+        player.sendMessage(Component.text("/capturebiomes version", NamedTextColor.AQUA)
+                .append(Component.text(" - Shows the current plugin version in the chat and checks for updates", NamedTextColor.WHITE)));
         player.sendMessage(Component.text("/capturebiomes givebiomepotion <biome> <tier>", NamedTextColor.GOLD)
                 .append(Component.text(" - Gives a biome potion", NamedTextColor.WHITE)));
         player.sendMessage(Component.text("/capturebiomes help", NamedTextColor.GRAY)
@@ -66,6 +69,34 @@ public class CommandActions {
                 .append(Component.text(" - Reloads the plugin's config", NamedTextColor.WHITE)));
         player.sendMessage(Component.text("/capturebiomes resetconfig", NamedTextColor.DARK_RED)
                 .append(Component.text(" - Resets the plugin’s config and automatically reloads it", NamedTextColor.WHITE)));
+
+    }
+
+    /**
+     * Actions of the /capturebiomes version command
+     * @param player
+     */
+    public static void commandVersion(Player player) {
+
+        try {
+
+            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                    .append(Component.text("You are using version "
+                                    + CaptureBiomes.INSTANCE.getPluginMeta().getVersion()
+                                    + " of this plugin. "
+                                    + (!CaptureBiomes.newVersionAvailable
+                                    ? "You're up-to-date!"
+                                    : "There is a new version available: "
+                                    + UpdateService.getLatestVersion()), NamedTextColor.GREEN)
+                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+
+        } catch (Exception e) {
+
+            player.sendMessage(Component.text("Something went wrong while executing the command ", NamedTextColor.RED)
+                    .append(Component.text("/offerly version", NamedTextColor.YELLOW))
+                    .append(Component.text(". Please try again later.", NamedTextColor.RED)));
+
+        }
 
     }
 

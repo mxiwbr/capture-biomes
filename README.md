@@ -58,6 +58,7 @@ When thrown, the potion affects a cuboid of `size` × `size` × `size` blocks, `
 |-------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|------------|
 | `/capturebiomes disable`                        | Disables the plugin.                                                                                                | OP |
 | `/capturebiomes enable`                         | Enables the plugin.                                                                                                 | OP |
+| `/capturebiomes version`                        | Shows the current plugin version in the ingame chat and checks for updates.                                         | OP |
 | `/capturebiomes givebiomepotion <biome> <tier>` | Gives a Biome Potion of the specified biome and tier.<br>**Example:** `/capturebiomes givebiomepotion snowy_taiga 3` | OP |
 | `/capturebiomes reloadconfig`                   | Reloads the plugin’s configuration (`config.yml`).                                                                  | OP |
 | `/capturebiomes resetconfig`                    | Resets the plugin’s configuration (`config.yml`) and automatically reloads it.                                      | OP |

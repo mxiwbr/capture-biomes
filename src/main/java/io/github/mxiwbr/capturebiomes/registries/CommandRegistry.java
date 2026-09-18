@@ -62,6 +62,16 @@ public class CommandRegistry {
 
                     }));
 
+            // Lets a user get the current plugin version and informs about updates
+            rootCommand.then(Commands.literal("version")
+                    .executes(ctx -> {
+
+                        Player player = (Player) ctx.getSource().getSender();
+                        CommandActions.commandVersion(player);
+                        return 1;
+
+                    }));
+
             // Reloads the plugin's config
             rootCommand.then(Commands.literal("reloadconfig")
                     .executes(ctx -> {
