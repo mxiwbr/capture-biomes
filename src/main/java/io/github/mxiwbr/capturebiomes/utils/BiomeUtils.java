@@ -34,6 +34,7 @@ public class BiomeUtils {
                  "old_growth_birch_forest", "old_growth_pine_taiga",
                  "old_growth_spruce_taiga", "windswept_forest", "taiga", "meadow", "sunflower_plains", "plains" -> Color.GREEN;
             case "cherry_grove" -> Color.fromRGB(182, 152, 172);
+            case "dappled_forest" -> Color.fromRGB(153, 72, 28);
 
             // jungle
             case "jungle", "bamboo_jungle", "sparse_jungle" -> Color.LIME;

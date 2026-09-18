@@ -1,7 +1,7 @@
 # Capture Biomes
 
 [![Java](https://img.shields.io/badge/Java-21-brightgreen)](https://www.java.com/)
-[![Minecraft](https://img.shields.io/badge/Minecraft_Java_Edition-1.21.5_to_26.1.x-blue)](https://www.minecraft.net/de-de/article/minecraft-java-edition-26-1-2)
+[![Minecraft](https://img.shields.io/badge/Minecraft_Java_Edition-1.21.5+-blue)](https://www.minecraft.net/de-de/article/minecraft-java-edition-26-1-2)
 [![API](https://img.shields.io/badge/API-PaperMC-white)](https://papermc.io/)
 [![bStats](https://img.shields.io/badge/bStats-Active-blue)](https://bstats.org/plugin/bukkit/CaptureBiomes/30340)
 [![Plugin](https://img.shields.io/badge/Type-Plugin-yellow)](#)
@@ -65,8 +65,9 @@ When thrown, the potion affects a cuboid of `size` × `size` × `size` blocks, `
 | `/biome`                                        | Shows the biome you are currently standing in.                                                                      | Everyone |
 
 ## Supported Versions
-- PaperMC on Minecraft Versions 1.21.5 - 26.1.2
-- PurpurMC on Minecraft Versions 1.21.5 - 26.1.2
+This plugin supports Minecraft version 1.21.5 and above. I don't recommend to use this plugin on lower versions, as it hasn't been officially tested - though it might still work.
+
+Please keep in mind that I develop and maintain this plugin in my spare time, so updates to new Minecraft versions may be delayed.
 
 ## Config
 Edit the `config.yml` in the plugin's folder to adapt it to your preferences:
@@ -99,7 +100,7 @@ beacon:
     tier-4: 32
 
     # Vertical range of biome spread (multiplier)
-    # Determines how many blocks the biome extends:
+    # Determines how much the biome extends:
     # - BELOW the impact point
     # - ABOVE the first solid block at the center's y-axis
     # The actual range (up and down) is calculated by multiplying the base size of the potion by this multiplier
@@ -113,6 +114,7 @@ beacon:
 # =========================================
 # Biome Potion Settings
 # =========================================
+# Already created potions are NOT affected
 potion-cooldown:
   enabled: true  # Enable cooldown
   length: 15     # Seconds (> 0)
@@ -120,7 +122,6 @@ potion-cooldown:
 # =========================================
 # Biome Toggles
 # =========================================
-# Already created potions are NOT affected
 biomes:
   enable-mushroom_fields: false
   enable-deep_dark: false
@@ -155,7 +156,7 @@ Nether and End biomes as well as custom biomes and dimensions are currently not 
 `Desert`, `Savanna`, `Savanna Plateau`, `Badlands`, `Eroded Badlands`, `Wooded Badlands`, `Windswept Savanna`, `Beach`
 
 #### 🟢 Forest / Plains
-`Forest`, `Birch Forest`, `Dark Forest`, `Flower Forest`, `Old Growth Birch Forest`, `Old Growth Pine Taiga`, `Old Growth Spruce Taiga`, `Windswept Forest`, `Grove`, `Taiga`, `Meadow`, `Cherry Grove`, `Sunflower Plains`, `Plains`, `Pale Garden`
+`Forest`, `Birch Forest`, `Dark Forest`, `Flower Forest`, `Old Growth Birch Forest`, `Old Growth Pine Taiga`, `Old Growth Spruce Taiga`, `Windswept Forest`, `Grove`, `Taiga`, `Meadow`, `Cherry Grove`, `Sunflower Plains`, `Plains`, `Pale Garden`, `Dappled Forest`
 
 #### 🟢 Jungle
 `Jungle`, `Bamboo Jungle`, `Sparse Jungle`

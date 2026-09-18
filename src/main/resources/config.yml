@@ -48,7 +48,6 @@ potion-cooldown:
 # =========================================
 # Biome Toggles
 # =========================================
-# Already created potions are NOT affected
 biomes:
   enable-mushroom_fields: false
   enable-deep_dark: false

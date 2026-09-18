@@ -55,7 +55,7 @@ public class ConsoleUtils {
      */
     public static void logCreateIssueMessage() {
 
-        log("If you think that this is a bug, please create an issue: https://github.com/mxiwbr/capture-biomes/issues", ConsoleUtils.LogType.WARNING);
+        log("If you think that this is a bug, please create a GitHub issue: https://github.com/mxiwbr/capture-biomes/issues", ConsoleUtils.LogType.WARNING);
 
     }
 

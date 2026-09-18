@@ -141,7 +141,7 @@ public class Config {
         } catch (Exception e) {
 
             CaptureBiomes.INSTANCE.getLogger().severe("Failed to load config.yml, using default config: " + e.getMessage());
-            CaptureBiomes.INSTANCE.getLogger().severe("If you think that this is a bug, please create an issue: https://github.com/mxiwbr/capture-bioms/issues");
+            CaptureBiomes.INSTANCE.getLogger().severe("If you think that this is a bug, please create a GitHub issue: https://github.com/mxiwbr/capture-bioms/issues");
 
             this.pluginEnabled = true;
             // Required items per tier
