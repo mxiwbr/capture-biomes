@@ -80,6 +80,8 @@ public class CommandActions {
 
         try {
 
+            CaptureBiomes.newVersionAvailable = UpdateService.checkForUpdates();
+
             player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
                     .append(Component.text("You are using version "
                                     + CaptureBiomes.INSTANCE.getPluginMeta().getVersion()
@@ -131,6 +133,34 @@ public class CommandActions {
                         .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
 
         log("The plugin was disabled by " + player.getName(), ConsoleUtils.LogType.ADDITIONAL_INFO);
+
+    }
+
+    /**
+     * Actions of the /capturebiomes update command
+     * @param confirmed
+     * @param restart Whether the server should be restarted automatically after installing the update
+     */
+    public static void commandUpdatePlugin(Player player, boolean confirmed, boolean restart) {
+
+        if (!confirmed) {
+            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                    .append(Component.text("Warning: This will reset all values in config.yml! Use ", NamedTextColor.GOLD)
+                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE))
+                    .append(Component.text("/capturebiomes update confirm", NamedTextColor.YELLOW)
+                            .clickEvent(ClickEvent.suggestCommand("/capturebiomes resetconfig confirm"))
+                            .hoverEvent(Component.text("Click to insert command", NamedTextColor.YELLOW))
+                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE))
+                    .append(Component.text(" to proceed.", NamedTextColor.RED)
+                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+        }
+        else {
+            Config.resetConfigFile();
+            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                    .append(Component.text("The config has been reset and reloaded successfully.", NamedTextColor.GREEN)
+                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+            log("The config has been reset by " + player.getName(), ConsoleUtils.LogType.INFO);
+        }
 
     }
 

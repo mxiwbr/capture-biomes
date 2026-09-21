@@ -35,13 +35,12 @@ public class UpdateService {
 
         try {
 
-            String latestPluginVersion = getLatestVersion();
-            cachedLatestVersion = latestPluginVersion;
+            cachedLatestVersion = getLatestVersion();
 
             // Check if new version is available and log it
-            if (!pluginVersion.equals(latestPluginVersion)) {
+            if (!pluginVersion.equals(cachedLatestVersion)) {
 
-                log("A new plugin version is available: " + latestPluginVersion + ", you're on: " + pluginVersion, ConsoleUtils.LogType.INFO);
+                log("A new plugin version is available: " + cachedLatestVersion + ", you're on: " + pluginVersion, ConsoleUtils.LogType.INFO);
 
                 return true;
             }

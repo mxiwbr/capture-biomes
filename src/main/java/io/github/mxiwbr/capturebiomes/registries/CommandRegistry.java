@@ -79,6 +79,29 @@ public class CommandRegistry {
 
                     }));
 
+            // Updates the plugin and restarts the server (only if the user confirmed the restart)
+            rootCommand.then(Commands.literal("update")
+                    .executes(ctx -> {
+
+                        CommandActions.commandUpdatePlugin((Player) ctx.getSource().getSender(), false, false);
+                        return 1;
+                    })
+                    .then(Commands.literal("confirm")
+                            .executes(ctx -> {
+
+                                CommandActions.commandUpdatePlugin((Player) ctx.getSource().getSender(), true, false);
+                                return 1;
+                            })
+                    )
+                    .then(Commands.literal("restart")
+                            .executes(ctx -> {
+
+                                CommandActions.commandUpdatePlugin((Player) ctx.getSource().getSender(), true, true);
+                                return 1;
+                            })
+                    )
+            );
+
             // Reloads the plugin's config
             rootCommand.then(Commands.literal("reloadconfig")
                     .executes(ctx -> {
