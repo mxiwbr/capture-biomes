@@ -11,13 +11,20 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
+import io.papermc.paper.registry.keys.BiomeKeys;
+import io.papermc.paper.registry.keys.tags.BiomeTagKeys;
+import io.papermc.paper.registry.tag.Tag;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import io.github.mxiwbr.capturebiomes.commands.*;
+
+import java.util.Locale;
+import java.util.stream.Stream;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;
@@ -82,10 +89,32 @@ public class CommandRegistry {
 
                     }));
 
+            // Load supported minecraft biomes for autocomplete
+            Registry<Biome> biomesReg = RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME);
+
             // Gives the executing player a biome potion: /capturebiomes givebiomepotion
             rootCommand.then(Commands.literal("givebiomepotion")
                     .then(Commands.argument("biome", word())
+                            .suggests((context, builder) -> {
+                                Tag<Biome> netherTag = biomesReg.getTag(BiomeTagKeys.IS_NETHER);
+                                Tag<Biome> endTag = biomesReg.getTag(BiomeTagKeys.IS_END);
+
+                                biomesReg.stream()
+                                        .filter(biome -> !netherTag.contains(BiomeKeys.create(biome.getKey())))
+                                        .filter(biome -> !endTag.contains(BiomeKeys.create(biome.getKey())))
+                                        .map(biome -> biome.getKey().getKey())
+                                        .filter(entry -> entry.toLowerCase(Locale.ROOT).startsWith(builder.getRemainingLowerCase()))
+                                        .forEach(builder::suggest);
+
+                                return builder.buildFuture();
+                            })
                             .then(Commands.argument("tier", integer(1, 4))
+                                .suggests((context, builder) -> {
+                                    for (int i = 1; i <= 4; i++) {
+                                        builder.suggest(i);
+                                    }
+                                    return builder.buildFuture();
+                                })
                                 .executes(ctx -> {
 
                                     Player player = (Player) ctx.getSource().getSender();
@@ -98,8 +127,7 @@ public class CommandRegistry {
                                     }
 
                                     NamespacedKey biomeNamespacedKey = NamespacedKey.fromString(biomeName);
-                                    var biomeRegistry = RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME);
-                                    Biome biome = biomeNamespacedKey != null ? biomeRegistry.get(biomeNamespacedKey) : null;
+                                    Biome biome = biomeNamespacedKey != null ? biomesReg.get(biomeNamespacedKey) : null;
 
                                     if (biome == null) {
 
