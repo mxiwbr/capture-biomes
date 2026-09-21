@@ -34,7 +34,7 @@ public class BeaconRitualService {
         if (world == null || world.getEnvironment() != World.Environment.NORMAL) {
 
             log("Creation of biome bottle at " + location + " failed: the dimension is either not supported or not found.", ConsoleUtils.LogType.WARNING);
-            logCreateIssueMessage();
+            logCreateIssueMessage(ConsoleUtils.LogType.WARNING);
             return;
         }
 
@@ -45,7 +45,7 @@ public class BeaconRitualService {
         if (BiomeUtils.getBiomeColor(biome.getKey().getKey()) == null) {
 
             log("Creation of biome bottle at " + location + " failed: the biome is either not supported or could not be found.", ConsoleUtils.LogType.WARNING);
-            logCreateIssueMessage();
+            logCreateIssueMessage(ConsoleUtils.LogType.WARNING);
             return;
 
         }
@@ -90,7 +90,7 @@ public class BeaconRitualService {
         if (potion == null) {
 
             log("Creation of biome bottle at " + location + " failed: the biome is either not supported or could not be found.", ConsoleUtils.LogType.WARNING);
-            logCreateIssueMessage();
+            logCreateIssueMessage(ConsoleUtils.LogType.WARNING);
             return;
         }
 

@@ -2,7 +2,11 @@
 # Capture Biomes - Configuration
 # =========================================
 
-enabled: true # Enable/disable plugin functionality
+# Enable/disable plugin functionality
+enabled: true
+
+# Enable/disable biome placement from biome potions thrown by dispensers
+enable-dispensers: true
 
 # =========================================
 # Beacon Settings

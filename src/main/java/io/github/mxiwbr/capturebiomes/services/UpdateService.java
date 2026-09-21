@@ -57,7 +57,7 @@ public class UpdateService {
                 e.printStackTrace();
 
             }
-            logCreateIssueMessage();
+            logCreateIssueMessage(ConsoleUtils.LogType.WARNING);
         }
 
         return false;

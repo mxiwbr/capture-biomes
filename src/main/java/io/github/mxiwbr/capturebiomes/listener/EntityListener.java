@@ -41,6 +41,15 @@ public class EntityListener implements Listener {
         // The potion that triggered the event
         ThrownPotion potionEntity = event.getEntity();
         ItemStack potionItem = potionEntity.getItem();
+
+        if (!CONFIG.isDispensersAllowed() && !(potionEntity.getShooter() instanceof Player)) {
+
+            log("The creation of a biome at " + potionEntity.getLocation().toString() + " was blocked because dispensers are disabled in the config file.", ConsoleUtils.LogType.ADDITIONAL_INFO);
+            logCreateIssueMessage(ConsoleUtils.LogType.ADDITIONAL_INFO);
+
+            return;
+
+        }
         
         // The world in which the potion was thrown
         World world = potionEntity.getLocation().getWorld();
@@ -64,7 +73,7 @@ public class EntityListener implements Listener {
         if (world == null || world.getEnvironment() != World.Environment.NORMAL) {
 
             log("Creation of biome at " + (world != null ? world.getName() : "unknown") + " failed: the biome / dimension is either not supported or could not be found.", ConsoleUtils.LogType.WARNING);
-            logCreateIssueMessage();
+            logCreateIssueMessage(ConsoleUtils.LogType.WARNING);
 
             areaEffectCloud.remove();
 

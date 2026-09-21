@@ -13,6 +13,8 @@ public class Config {
     @Setter
     // enabled status
     private boolean pluginEnabled;
+    // whether dispensers can place biomes
+    private boolean dispensersAllowed;
     // Required items per tier
     private int[] requiredItemCount;
     // Amount of biome potions to get per tier
@@ -44,6 +46,9 @@ public class Config {
 
             // enabled status
             this.pluginEnabled = config.getBoolean("enabled");
+
+            // whether dispensers can place biomes
+            this.dispensersAllowed = config.getBoolean("enable-dispensers");
 
             try {
 
@@ -144,6 +149,7 @@ public class Config {
             CaptureBiomes.INSTANCE.getLogger().severe("If you think that this is a bug, please create a GitHub issue: https://github.com/mxiwbr/capture-bioms/issues");
 
             this.pluginEnabled = true;
+            this.dispensersAllowed = true;
             // Required items per tier
             this.requiredItemCount = new int[] { 16, 32, 48, 64 };
             // Amount of biome potions to get per tier
@@ -173,6 +179,7 @@ public class Config {
     public static void resetConfigFile() {
 
         CaptureBiomes.CONFIG.pluginEnabled = true;
+        CaptureBiomes.CONFIG.dispensersAllowed = true;
         // Required items per tier
         CaptureBiomes.CONFIG.requiredItemCount = new int[] { 16, 32, 48, 64 };
         // Size of biome potions per tier
@@ -192,6 +199,7 @@ public class Config {
         CaptureBiomes.CONFIG.loadFailed = false;
 
         CaptureBiomes.INSTANCE.getConfig().set("enabled", true);
+        CaptureBiomes.INSTANCE.getConfig().set("enable-dispensers", true);
         // Required items per tier
         CaptureBiomes.INSTANCE.getConfig().set("beacon.required-item-count.tier-1", 16);
         CaptureBiomes.INSTANCE.getConfig().set("beacon.required-item-count.tier-2", 32);
