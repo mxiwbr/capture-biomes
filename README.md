@@ -66,9 +66,9 @@ When thrown, the potion affects a cuboid of `size` × `size` × `size` blocks, `
 | `/biome`                                        | Shows the biome you are currently standing in.                                                                      | Everyone |
 
 ## Supported Versions
-This plugin supports Minecraft version 1.21.5 and above. I don't recommend to use this plugin on lower versions, as it hasn't been officially tested - though it might still work.
+This plugin supports Minecraft version 1.21.5 and above. I don't recommend using this plugin on lower versions, as it hasn't been officially tested - though it might still work.
 
-Please keep in mind that I develop and maintain this plugin in my spare time, so updates to new Minecraft versions may be delayed.
+Please keep in mind that I develop and maintain this plugin in my spare time, so updates for new Minecraft versions may be delayed.
 
 ## Config
 Edit the `config.yml` in the plugin's folder to adapt it to your preferences:
