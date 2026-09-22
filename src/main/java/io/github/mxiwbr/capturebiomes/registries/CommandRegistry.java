@@ -83,20 +83,13 @@ public class CommandRegistry {
             rootCommand.then(Commands.literal("update")
                     .executes(ctx -> {
 
-                        CommandActions.commandUpdatePlugin((Player) ctx.getSource().getSender(), false, false);
+                        CommandActions.commandUpdatePlugin((Player) ctx.getSource().getSender(), false);
                         return 1;
                     })
-                    .then(Commands.literal("confirm")
-                            .executes(ctx -> {
-
-                                CommandActions.commandUpdatePlugin((Player) ctx.getSource().getSender(), true, false);
-                                return 1;
-                            })
-                    )
                     .then(Commands.literal("restart")
                             .executes(ctx -> {
 
-                                CommandActions.commandUpdatePlugin((Player) ctx.getSource().getSender(), true, true);
+                                CommandActions.commandUpdatePlugin((Player) ctx.getSource().getSender(), true);
                                 return 1;
                             })
                     )

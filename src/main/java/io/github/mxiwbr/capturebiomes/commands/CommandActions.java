@@ -89,14 +89,14 @@ public class CommandActions {
                                     + (!CaptureBiomes.newVersionAvailable
                                     ? "You're up-to-date!"
                                     : "There is a new version available: "
-                                    + UpdateService.getLatestVersion()), NamedTextColor.GREEN)
+                                    + UpdateService.getLatestVersion().get("version_number").getAsString()), NamedTextColor.GREEN)
                             .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
 
         } catch (Exception e) {
 
             player.sendMessage(Component.text("Something went wrong while executing the command ", NamedTextColor.RED)
-                    .append(Component.text("/offerly version", NamedTextColor.YELLOW))
-                    .append(Component.text(". Please try again later.", NamedTextColor.RED)));
+                    .append(Component.text("/capturebiomes version", NamedTextColor.YELLOW))
+                    .append(Component.text(". Please check the server logs for more detailed information.", NamedTextColor.RED)));
 
         }
 
@@ -138,28 +138,31 @@ public class CommandActions {
 
     /**
      * Actions of the /capturebiomes update command
-     * @param confirmed
      * @param restart Whether the server should be restarted automatically after installing the update
      */
-    public static void commandUpdatePlugin(Player player, boolean confirmed, boolean restart) {
+    public static void commandUpdatePlugin(Player player, boolean restart) {
 
-        if (!confirmed) {
-            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
-                    .append(Component.text("Warning: This will reset all values in config.yml! Use ", NamedTextColor.GOLD)
-                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE))
-                    .append(Component.text("/capturebiomes update confirm", NamedTextColor.YELLOW)
-                            .clickEvent(ClickEvent.suggestCommand("/capturebiomes resetconfig confirm"))
-                            .hoverEvent(Component.text("Click to insert command", NamedTextColor.YELLOW))
-                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE))
-                    .append(Component.text(" to proceed.", NamedTextColor.RED)
-                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
-        }
-        else {
-            Config.resetConfigFile();
-            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
-                    .append(Component.text("The config has been reset and reloaded successfully.", NamedTextColor.GREEN)
-                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
-            log("The config has been reset by " + player.getName(), ConsoleUtils.LogType.INFO);
+        try {
+
+            CaptureBiomes.newVersionAvailable = UpdateService.checkForUpdates();
+
+            if (!CaptureBiomes.newVersionAvailable) {
+
+                player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                        .append(Component.text("There are no updates available - you're up-to-date!", NamedTextColor.GREEN)
+                                .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+                return;
+
+            }
+
+            UpdateService.update(player, restart);
+
+        } catch (Exception e) {
+
+            player.sendMessage(Component.text("Something went wrong while executing the command ", NamedTextColor.RED)
+                    .append(Component.text("/capturebiomes update", NamedTextColor.YELLOW))
+                    .append(Component.text(". Please check the server logs for more detailed information.", NamedTextColor.RED)));
+
         }
 
     }

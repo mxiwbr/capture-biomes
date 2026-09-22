@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import io.github.mxiwbr.capturebiomes.CaptureBiomes;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.github.mxiwbr.capturebiomes.exceptions.UpdateException;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -11,10 +12,18 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.concurrent.CompletableFuture;
 
 import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.log;
 import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.logCreateIssueMessage;
@@ -35,7 +44,7 @@ public class UpdateService {
 
         try {
 
-            cachedLatestVersion = getLatestVersion();
+            cachedLatestVersion = getLatestVersion().get("version_number").getAsString();
 
             // Check if new version is available and log it
             if (!pluginVersion.equals(cachedLatestVersion)) {
@@ -64,11 +73,11 @@ public class UpdateService {
     }
 
     /**
-     * Gets latest plugin version from Modrinth (Modrinth API) and returns it as string
+     * Gets latest plugin version info from Modrinth (Modrinth API) and returns it as JsonObject
      * @throws IOException
      * @throws InterruptedException
      */
-    public static String getLatestVersion() throws IOException, InterruptedException {
+    public static JsonObject getLatestVersion() throws IOException, InterruptedException {
 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -99,21 +108,19 @@ public class UpdateService {
 
         }
 
-        JsonObject latestVersion = jsonArray.get(0).getAsJsonObject();
-
-        return latestVersion.get("version_number").getAsString();
+        return jsonArray.get(0).getAsJsonObject();
 
     }
 
     /**
-     * Sends the update available message to a player in the ingame chat
+     * Sends the update available message to a player in the in-game chat
      * @param player
      */
     public static void sendUpdateMessageToPlayer(Player player) {
 
         try {
 
-            String version = cachedLatestVersion != null ? cachedLatestVersion : getLatestVersion();
+            String version = cachedLatestVersion != null ? cachedLatestVersion : getLatestVersion().get("version_number").getAsString();
 
             player.sendMessage(Component.text("[CaptureBiomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
                     .append(Component.text("There is a newer plugin version available: "
@@ -128,6 +135,63 @@ public class UpdateService {
             CaptureBiomes.LOGGER.severe(e.getMessage());
 
         }
+
+    }
+
+    public static boolean update(Player player, boolean restart) {
+
+        final JsonObject latestVersion = getLatestVersion();
+        final JsonObject latestVersionFile = latestVersion.getAsJsonArray("files").get(0).getAsJsonObject();
+        final BigDecimal updateSizeMB = latestVersionFile.get("size").getAsBigDecimal().divide(BigDecimal.valueOf(1000000), 2, RoundingMode.HALF_UP);
+
+        final Path pluginsFolder = CaptureBiomes.INSTANCE.getDataFolder().getParentFile().toPath();
+        final Path targetPath = pluginsFolder.resolve(latestVersionFile.getAsJsonObject("filename").getAsString());
+
+        player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                .append(Component.text("Downloading version " + latestVersion.get("version_number").getAsString() + " of CaptureBiomes (" + updateSizeMB + "MB)...", NamedTextColor.GREEN)
+                        .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+
+        CompletableFuture.supplyAsync(() -> {
+
+            try {
+
+                HttpClient httpClient = HttpClient.newHttpClient();
+                HttpRequest httpRequest = HttpRequest.newBuilder().uri(URI.create(latestVersionFile.get("url").getAsString())).GET().build();
+                HttpResponse<InputStream> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofInputStream());
+
+                if (httpResponse.statusCode() != 200) {
+
+                    throw new UpdateException("Modrinth API returned status code " + httpResponse.statusCode() + ".");
+
+                }
+
+                if (Files.notExists(targetPath)) {
+
+                    throw new UpdateException("The server's plugin folder could not be found.");
+
+                }
+
+                try (InputStream inputStream = httpResponse.body()) {
+
+                    Files.copy(inputStream, targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+                }
+
+                return true;
+
+            }
+            catch (Exception e) {
+
+                throw new UpdateException(e.getMessage());
+
+            }
+
+        })
+        .thenAcceptAsync(success -> {
+
+            return true;
+
+        }, runnable -> plugin.getServer().getScheduler().runTask(plugin, runnable))
 
     }
 
