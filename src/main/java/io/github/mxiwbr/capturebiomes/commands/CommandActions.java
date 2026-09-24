@@ -98,6 +98,8 @@ public class CommandActions {
                     .append(Component.text("/capturebiomes version", NamedTextColor.YELLOW))
                     .append(Component.text(". Please check the server logs for more detailed information.", NamedTextColor.RED)));
 
+            log("Failed to execute /capturebiomes version for player " + player.getName() + ": " + e.getMessage(), ConsoleUtils.LogType.SEVERE);
+
         }
 
     }
@@ -129,7 +131,7 @@ public class CommandActions {
         CaptureBiomes.INSTANCE.saveConfig();
 
         player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
-                .append(Component.text("The plugin was disabled.", NamedTextColor.RED)
+                .append(Component.text("The plugin was successfully disabled.", NamedTextColor.GREEN)
                         .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
 
         log("The plugin was disabled by " + player.getName(), ConsoleUtils.LogType.ADDITIONAL_INFO);
@@ -163,6 +165,8 @@ public class CommandActions {
                     .append(Component.text("/capturebiomes update", NamedTextColor.YELLOW))
                     .append(Component.text(". Please check the server logs for more detailed information.", NamedTextColor.RED)));
 
+            log("Failed to execute /capturebiomes update for player " + player.getName() + ": " + e.getMessage(), ConsoleUtils.LogType.SEVERE);
+
         }
 
     }
@@ -181,7 +185,7 @@ public class CommandActions {
 
         if (!(new File(CaptureBiomes.INSTANCE.getDataFolder(), "config.yml").exists())) {
 
-            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.RED, TextDecoration.BOLD)
                     .append(Component.text("No config.yml file could be found! Please use ", NamedTextColor.RED)
                             .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE))
                                      .append(Component.text("/capturebiomes resetconfig", NamedTextColor.YELLOW)
@@ -202,7 +206,7 @@ public class CommandActions {
 
         if (CaptureBiomes.CONFIG.isLoadFailed()) {
 
-            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.RED, TextDecoration.BOLD)
                     .append(Component.text("Reload of config failed! Please check the server log for more information.", NamedTextColor.RED)
                             .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
 

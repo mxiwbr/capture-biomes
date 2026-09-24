@@ -7,15 +7,19 @@ import com.google.gson.JsonParser;
 import io.github.mxiwbr.capturebiomes.exceptions.UpdateException;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -138,61 +142,145 @@ public class UpdateService {
 
     }
 
-    public static boolean update(Player player, boolean restart) {
+    public static void update(Player player, boolean restart) {
 
-        final JsonObject latestVersion = getLatestVersion();
-        final JsonObject latestVersionFile = latestVersion.getAsJsonArray("files").get(0).getAsJsonObject();
-        final BigDecimal updateSizeMB = latestVersionFile.get("size").getAsBigDecimal().divide(BigDecimal.valueOf(1000000), 2, RoundingMode.HALF_UP);
+        try {
 
-        final Path pluginsFolder = CaptureBiomes.INSTANCE.getDataFolder().getParentFile().toPath();
-        final Path targetPath = pluginsFolder.resolve(latestVersionFile.getAsJsonObject("filename").getAsString());
+            final JsonObject latestVersion = getLatestVersion();
+            final JsonObject latestVersionFile = latestVersion.getAsJsonArray("files").get(0).getAsJsonObject();
+            final BigDecimal updateSizeMB = latestVersionFile.get("size").getAsBigDecimal().divide(BigDecimal.valueOf(1000000), 2, RoundingMode.HALF_UP);
 
-        player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
-                .append(Component.text("Downloading version " + latestVersion.get("version_number").getAsString() + " of CaptureBiomes (" + updateSizeMB + "MB)...", NamedTextColor.GREEN)
-                        .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+            final Path pluginsFolder = CaptureBiomes.INSTANCE.getDataFolder().getParentFile().toPath();
+            final Path targetPath = pluginsFolder.resolve(latestVersionFile.get("filename").getAsString());
 
-        CompletableFuture.supplyAsync(() -> {
+            if (Files.notExists(pluginsFolder)) {
 
-            try {
-
-                HttpClient httpClient = HttpClient.newHttpClient();
-                HttpRequest httpRequest = HttpRequest.newBuilder().uri(URI.create(latestVersionFile.get("url").getAsString())).GET().build();
-                HttpResponse<InputStream> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofInputStream());
-
-                if (httpResponse.statusCode() != 200) {
-
-                    throw new UpdateException("Modrinth API returned status code " + httpResponse.statusCode() + ".");
-
-                }
-
-                if (Files.notExists(targetPath)) {
-
-                    throw new UpdateException("The server's plugin folder could not be found.");
-
-                }
-
-                try (InputStream inputStream = httpResponse.body()) {
-
-                    Files.copy(inputStream, targetPath, StandardCopyOption.REPLACE_EXISTING);
-
-                }
-
-                return true;
-
-            }
-            catch (Exception e) {
-
-                throw new UpdateException(e.getMessage());
+                throw new UpdateException("The server's plugin folder could not be found.");
 
             }
 
-        })
-        .thenAcceptAsync(success -> {
+            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                    .append(Component.text("Downloading version " + latestVersion.get("version_number").getAsString() + " of CaptureBiomes (" + updateSizeMB + "MB)...", NamedTextColor.GREEN)
+                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
 
-            return true;
+            CompletableFuture.supplyAsync(() -> {
 
-        }, runnable -> plugin.getServer().getScheduler().runTask(plugin, runnable))
+                try {
 
+                    HttpClient httpClient = HttpClient.newHttpClient();
+                    HttpRequest httpRequest = HttpRequest.newBuilder().uri(URI.create(latestVersionFile.get("url").getAsString())).GET().build();
+                    HttpResponse<InputStream> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofInputStream());
+
+                    if (httpResponse.statusCode() != 200) {
+
+                        throw new UpdateException("Modrinth API returned status code " + httpResponse.statusCode() + ".");
+
+                    }
+
+                    try (InputStream inputStream = httpResponse.body()) {
+
+                        Files.copy(inputStream, targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+                    }
+
+                    return true;
+
+                } catch (Exception e) {
+
+                    throw new UpdateException(e.getMessage());
+
+                }
+
+            }).thenAcceptAsync(success -> {
+
+                // Delete the current plugin file on server shutdown
+                final URL jarLocation = CaptureBiomes.INSTANCE.getClass().getProtectionDomain().getCodeSource().getLocation();
+                final String path = jarLocation.getPath();
+                final String fileName = path.substring(path.lastIndexOf('/') + 1);
+
+                try {
+
+                    new File(jarLocation.toURI()).deleteOnExit();
+
+                    player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.GREEN, TextDecoration.BOLD)
+                            .append(Component.text("Update successful! " +
+                                            (restart ? "The server will now be restarted automatically." : "Please restart the server to apply it."),
+                                    NamedTextColor.GREEN).decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+
+                    if (restart) {
+
+                        CaptureBiomes.INSTANCE.getServer().restart();
+
+                    }
+
+                } catch (URISyntaxException e) {
+
+                    Component warningMessage = Component.text("[Capture Biomes] ", NamedTextColor.RED, TextDecoration.BOLD)
+                            .append(Component.text("Warning: The old plugin file ", NamedTextColor.RED)
+                                    .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE))
+                            .append(Component.text(fileName, NamedTextColor.YELLOW)
+                                    .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE))
+                            .append(Component.text(" could not be scheduled for removal. Please delete it manually to avoid conflicts on restart.", NamedTextColor.RED)
+                                    .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE));
+
+                    // Cancel server restart to avoid potential conflicts
+                    if (restart) {
+
+                        warningMessage = warningMessage.append(Component.text(" Your scheduled restart was canceled.", NamedTextColor.RED)
+                                .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE));
+
+                    }
+
+                    player.sendMessage(warningMessage);
+
+                }
+
+            }, runnable -> CaptureBiomes.INSTANCE.getServer().getScheduler().runTask(CaptureBiomes.INSTANCE, runnable))
+            .exceptionallyAsync(throwable -> {
+
+                Throwable cause = throwable.getCause() != null ? throwable.getCause() : throwable;
+
+                try {
+
+                    Files.deleteIfExists(targetPath);
+
+                } catch (IOException ioException) {
+
+                    log("Could not remove (partially) downloaded update file: " + ioException.getMessage(), ConsoleUtils.LogType.WARNING);
+
+                }
+
+
+                Component failureMessage = Component.text("[Capture Biomes] ", NamedTextColor.RED, TextDecoration.BOLD)
+                        .append(Component.text("The plugin update failed. Please check the server logs for more detailed information.", NamedTextColor.RED)
+                                .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE));
+
+                // Cancel server restart to avoid potential conflicts
+                if (restart) {
+
+                    failureMessage = failureMessage.append(Component.text(" Your scheduled server restart was canceled.", NamedTextColor.YELLOW)
+                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE));
+
+                }
+
+                player.sendMessage(failureMessage);
+
+                log("A plugin update triggered by " + player.getName() + " failed: " + cause.getMessage(), ConsoleUtils.LogType.SEVERE);
+
+                return null;
+
+            }, runnable -> CaptureBiomes.INSTANCE.getServer().getScheduler().runTask(CaptureBiomes.INSTANCE, runnable));
+
+        }
+        catch (Exception e) {
+
+            player.sendMessage(Component.text("[Capture Biomes] ", NamedTextColor.RED, TextDecoration.BOLD)
+                    .append(Component.text("The plugin update failed. Please check the server logs for more detailed information.", NamedTextColor.RED)
+                            .decorationIfAbsent(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+
+            log("A plugin update triggered by " + player.getName() + " failed: " + e.getMessage(), ConsoleUtils.LogType.SEVERE);
+
+        }
     }
 
 }

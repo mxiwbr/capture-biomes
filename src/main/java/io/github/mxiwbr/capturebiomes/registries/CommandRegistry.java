@@ -79,7 +79,7 @@ public class CommandRegistry {
 
                     }));
 
-            // Updates the plugin and restarts the server (only if the user confirmed the restart)
+            // Updates the plugin and restarts the server (only if the user prompted the restart)
             rootCommand.then(Commands.literal("update")
                     .executes(ctx -> {
 
