@@ -24,7 +24,6 @@ import org.bukkit.entity.Player;
 import io.github.mxiwbr.capturebiomes.commands.*;
 
 import java.util.Locale;
-import java.util.stream.Stream;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
 import static com.mojang.brigadier.arguments.StringArgumentType.word;

@@ -6,6 +6,7 @@ import io.github.mxiwbr.capturebiomes.factories.ItemFactory;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import io.github.mxiwbr.capturebiomes.utils.ItemUtils;
 import io.github.mxiwbr.capturebiomes.factories.ParticleFactory;
+import org.apache.commons.text.WordUtils;
 import org.bukkit.*;
 import org.bukkit.block.Beacon;
 import org.bukkit.block.Biome;
@@ -110,6 +111,9 @@ public class BeaconRitualService {
                 player.sendBlockChange(beacon.getLocation(), Material.BEACON.createBlockData());
             }
         }
+
+        // Record biome capture in bStats chart
+        CaptureBiomes.INSTANCE.recordBiomeCapture(WordUtils.capitalizeFully(biome.getKey().getKey().replace("_", " ")));
 
     }
 

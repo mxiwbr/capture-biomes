@@ -7,8 +7,12 @@ import io.github.mxiwbr.capturebiomes.registries.CommandRegistry;
 import io.github.mxiwbr.capturebiomes.services.UpdateService;
 import io.github.mxiwbr.capturebiomes.utils.ConsoleUtils;
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.AdvancedPie;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 import static io.github.mxiwbr.capturebiomes.utils.ConsoleUtils.log;
@@ -20,6 +24,11 @@ public final class CaptureBiomes extends JavaPlugin {
     public static CaptureBiomes INSTANCE;
     public static Config CONFIG;
     public static boolean newVersionAvailable = false;
+    private final Map<String, Integer> capturedBiomeCounts = new ConcurrentHashMap<>();
+
+    public void recordBiomeCapture(String biomeName) {
+        capturedBiomeCounts.merge(biomeName, 1, Integer::sum);
+    }
 
     // Called when the plugin is enabled
     @Override
@@ -49,6 +58,26 @@ public final class CaptureBiomes extends JavaPlugin {
 
                 final int bStatsPluginId = 30340;
                 Metrics bStatsMetrics = new Metrics(this, bStatsPluginId);
+
+                // custom bStats chart showing the captured biome distribution
+                bStatsMetrics.addCustomChart(new AdvancedPie("bottled_biomes", () -> {
+
+                    // snapshot of the current capture counts
+                    Map<String, Integer> snapshot = new HashMap<>();
+
+                    capturedBiomeCounts.forEach((biome, count) -> {
+
+                        if (capturedBiomeCounts.remove(biome, count)) {
+
+                            snapshot.put(biome, count);
+
+                        }
+
+                    });
+
+                    return snapshot.isEmpty() ? null : snapshot;
+
+                }));
 
             }
             catch (Exception e) {
